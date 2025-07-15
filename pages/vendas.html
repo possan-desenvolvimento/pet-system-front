@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LP Creative Solutions System</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/images/logo-lp.jpg" alt="LP Creative Solutions Logo" class="sidebar-logo">
+                <h3>LP Creative Solutions System</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li class="nav-item"><a href="clientes.html"><i class="fas fa-users"></i> Clientes e Pets</a></li>
+                    <li class="nav-item"><a href="agendamentos.html"><i class="fas fa-calendar-alt"></i> Agendamentos</a></li>
+                    <li class="nav-item"><a href="estoque.html"><i class="fas fa-boxes"></i> Estoque</a></li>
+                    <li class="nav-item active"><a href="vendas.html"><i class="fas fa-cash-register"></i> Vendas</a></li>
+                    <li class="nav-item"><a href="financeiro.html"><i class="fas fa-dollar-sign"></i> Financeiro</a></li>
+                    <li class="nav-item"><a href="veterinario.html"><i class="fas fa-user-md"></i> Veterinário</a></li>
+                    <li class="nav-item"><a href="configuracoes.html"><i class="fas fa-cog"></i> Configurações</a></li>
+                    <li class="nav-item logout-item"><a href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="navbar">
+                <h1>Vendas / Ponto de Venda (PDV)</h1>
+                <div class="user-info">
+                    <span class="user-name">Olá, Nome do Usuário!</span>
+                </div>
+            </header>
+
+            <section class="section-content">
+                <div class="card sales-grid">
+                    <div class="sales-input-section">
+                        <div class="card-header">
+                            <h2>Nova Venda</h2>
+                        </div>
+                        <div class="card-body">
+                            <form class="sale-form">
+                                <div class="input-group">
+                                    <label for="searchProductService">Buscar Produto/Serviço:</label>
+                                    <input type="text" id="searchProductService" name="searchProductService" placeholder="Nome ou código do item...">
+                                    <ul id="searchResults" class="search-results-list">
+                                        <li data-id="1" data-price="189.90" data-name="Ração Premium Cães 15kg">Ração Premium Cães 15kg (R$ 189,90)</li>
+                                        <li data-id="2" data-price="35.00" data-name="Shampoo Neutro Filhotes">Shampoo Neutro Filhotes (R$ 35,00)</li>
+                                        <li data-id="3" data-price="80.00" data-name="Banho e Tosa Completa">Banho e Tosa Completa (R$ 80,00)</li>
+                                    </ul>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="selectedClient">Cliente (Opcional):</label>
+                                    <select id="selectedClient" name="selectedClient">
+                                        <option value="">Consumidor Final</option>
+                                        <option value="1">João Silva</option>
+                                        <option value="2">Maria Souza</option>
+                                    </select>
+                                </div>
+                                <hr style="margin: 20px 0; border-color: #eee;">
+                                <h3>Itens da Venda</h3>
+                                <table class="data-table sale-items-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Qtde</th>
+                                            <th>Valor Unit.</th>
+                                            <th>Total</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="saleItemsBody">
+                                        <tr>
+                                            <td>Ração Premium Cães 15kg</td>
+                                            <td><input type="number" value="1" min="1" class="item-qty-input"></td>
+                                            <td>R$ 189,90</td>
+                                            <td>R$ 189,90</td>
+                                            <td><button class="btn-action delete-item-btn" title="Remover Item"><i class="fas fa-trash-alt"></i></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Banho e Tosa Completa</td>
+                                            <td><input type="number" value="1" min="1" class="item-qty-input"></td>
+                                            <td>R$ 80,00</td>
+                                            <td>R$ 80,00</td>
+                                            <td><button class="btn-action delete-item-btn" title="Remover Item"><i class="fas fa-trash-alt"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="sale-summary">
+                                    <p>Subtotal: <span id="subtotal">R$ 269,90</span></p>
+                                    <div class="input-group">
+                                        <label for="discount">Desconto (R$ ou %):</label>
+                                        <input type="text" id="discount" name="discount" placeholder="Ex: 10,00 ou 5%">
+                                    </div>
+                                    <h3>Total a Pagar: <span id="totalValue">R$ 259,90</span></h3>
+                                </div>
+                                <div class="input-group">
+                                    <label for="paymentMethod">Forma de Pagamento:</label>
+                                    <select id="paymentMethod" name="paymentMethod" required>
+                                        <option value="">Selecione a forma</option>
+                                        <option value="dinheiro">Dinheiro</option>
+                                        <option value="cartao-credito">Cartão de Crédito</option>
+                                        <option value="cartao-debito">Cartão de Débito</option>
+                                        <option value="pix">Pix</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="receivedAmount">Valor Recebido (R$):</label>
+                                    <input type="number" id="receivedAmount" name="receivedAmount" step="0.01" min="0" value="0.00">
+                                </div>
+                                <p>Troco: <span id="changeValue">R$ 0,00</span></p>
+
+                                <button type="submit" class="btn-primary"><i class="fas fa-check-circle"></i> Finalizar Venda</button>
+                                <button type="button" class="btn-secondary" style="margin-top: 10px;"><i class="fas fa-times-circle"></i> Cancelar Venda</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="sales-history-section">
+                        <div class="card-header">
+                            <h2>Histórico de Vendas</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="filter-bar" style="margin-bottom: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                                <input type="date" id="historyDateFilter" class="input-date">
+                                <input type="text" id="historyClientFilter" placeholder="Cliente..." class="input-text-filter">
+                                <button class="btn-secondary"><i class="fas fa-search"></i> Buscar</button>
+                            </div>
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID Venda</th>
+                                        <th>Data</th>
+                                        <th>Cliente</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#001</td>
+                                        <td>10/07/2025</td>
+                                        <td>João Silva</td>
+                                        <td>R$ 259,90</td>
+                                        <td><span class="status-badge completed">Concluído</span></td>
+                                        <td>
+                                            <button class="btn-action view-btn" title="Ver Detalhes"><i class="fas fa-eye"></i></button>
+                                            <button class="btn-action print-btn" title="Imprimir Recibo"><i class="fas fa-print"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#002</td>
+                                        <td>09/07/2025</td>
+                                        <td>Consumidor Final</td>
+                                        <td>R$ 50,00</td>
+                                        <td><span class="status-badge completed">Concluído</span></td>
+                                        <td>
+                                            <button class="btn-action view-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="btn-action print-btn"><i class="fas fa-print"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="pagination">
+                                <button>&laquo; Anterior</button>
+                                <span>Página 1 de 2</span>
+                                <button>Próxima &raquo;</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="src/js/vendas.js"></script>
+</body>
+</html>

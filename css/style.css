@@ -1,0 +1,187 @@
+/* Reset Básico e Estilos Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais profissional */
+}
+
+body {
+    background-color: #f0f2f5; /* Fundo cinza claro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ocupa a altura total da viewport */
+    color: #333;
+}
+
+/* Container de Formulário Geral (para Login e Cadastro) */
+/* Renomeei de .login-container para .form-container para ser mais genérico e reutilizável */
+.form-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    width: 100%;
+    max-width: 400px; /* Largura máxima para o formulário */
+    text-align: center;
+}
+
+/* Título do Formulário (Login e Cadastro) */
+.form-container h2 {
+    margin-bottom: 30px;
+    color: #2c3e50; /* Cor de título mais escura */
+    font-size: 2em;
+}
+
+/* Estilos para o Header do Formulário (com Logo) */
+/* Renomeei de .login-header para .form-header para ser mais genérico e reutilizável */
+.form-header {
+    margin-bottom: 30px;
+}
+
+.company-logo {
+    max-width: 200px; /* Ajuste este valor conforme a largura ideal para o SEU logo */
+    height: auto;     /* ESSENCIAL: Garante que a altura se ajuste automaticamente para manter a proporção */
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto; /* Centraliza o logo */
+    border-radius: 8px; /* Opcional: para logos que combinam com um leve arredondamento */
+}
+
+/* Grupos de Input */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group input[type="password"],
+.input-group input[type="tel"] { /* Adicionado para campos de telefone */
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.input-group input[type="text"]:focus,
+.input-group input[type="email"]:focus,
+.input-group input[type="password"]:focus,
+.input-group input[type="tel"]:focus {
+    border-color: #007bff; /* Borda azul ao focar */
+    outline: none; /* Remove o contorno padrão do navegador */
+}
+
+/* Botão Primário */
+.btn-primary {
+    background-color: #007bff; /* Azul padrão */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Ocupa a largura total */
+    margin-bottom: 15px; /* Espaço abaixo do botão */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Azul mais escuro ao passar o mouse */
+    transform: translateY(-2px); /* Efeito de "levantar" */
+}
+
+.btn-primary:active {
+    transform: translateY(0); /* Volta ao normal ao clicar */
+}
+
+/* Links de Ação do Formulário */
+.form-actions {
+    margin-top: 25px;
+    margin-bottom: 20px; /* Adicionado para espaçar do botão de cadastro/voltar */
+}
+
+.forgot-password {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.95em;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Mensagens de Erro (para JavaScript) */
+.error-message {
+    color: #dc3545; /* Vermelho */
+    font-size: 0.85em;
+    margin-top: -10px; /* Ajusta o espaçamento */
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* Seção de Cadastro na Tela de Login */
+.register-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee; /* Linha divisória suave */
+}
+
+.register-section p {
+    margin-bottom: 15px;
+    color: #666;
+    font-size: 0.95em;
+}
+
+/* Botão Secundário (para Cadastre-se ou Voltar) */
+.btn-secondary {
+    background-color: #6c757d; /* Cinza mais escuro */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%; /* Ocupa a largura total */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Cinza mais escuro ao passar o mouse */
+    transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+
+/* Responsividade Básica (Ajuste para o .form-container genérico) */
+@media (max-width: 600px) {
+    .form-container {
+        margin: 20px;
+        padding: 30px 20px;
+    }
+
+    .form-container h2 {
+        font-size: 1.8em;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}

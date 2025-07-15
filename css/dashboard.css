@@ -1,0 +1,841 @@
+/* Layout Principal do Dashboard */
+.dashboard-wrapper {
+    display: flex;
+    min-height: 100vh; /* Garante que o wrapper ocupe a altura total */
+    width: 100%;
+    background-color: #f0f2f5; /* Fundo geral, pode ser o mesmo do body */
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50; /* Cor escura para a sidebar */
+    color: white;
+    padding: 20px 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+.sidebar-logo {
+    max-width: 80px; /* Ajuste o tamanho do logo na sidebar */
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.sidebar-header h3 {
+    color: #ecf0f1;
+    font-size: 1.2em;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav .nav-item {
+    margin-bottom: 5px;
+}
+
+.sidebar-nav .nav-item a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-nav .nav-item a:hover,
+.sidebar-nav .nav-item.active a {
+    background-color: #34495e; /* Fundo mais escuro no hover/ativo */
+    color: #007bff; /* Azul para o item ativo/hover */
+    border-left: 5px solid #007bff; /* Indicador visual do item ativo */
+    padding-left: 15px; /* Ajuste para compensar a borda */
+}
+
+.sidebar-nav .nav-item i { /* Espaço para ícones (se for usar FontAwesome ou similar) */
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.sidebar-nav .logout-item {
+    margin-top: auto; /* Empurra o item de sair para o final da sidebar */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 15px;
+}
+
+/* Main Content Area */
+.main-content {
+    flex-grow: 1; /* Ocupa o restante do espaço */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar (Header do Main Content) */
+.navbar {
+    background-color: #ffffff;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h1 {
+    font-size: 1.8em;
+    color: #2c3e50;
+}
+
+.user-info {
+    font-size: 1.1em;
+    color: #555;
+}
+
+/* Dashboard Overview (Widgets) */
+.dashboard-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Layout responsivo de cards */
+    gap: 20px; /* Espaçamento entre os cards */
+    margin-bottom: 30px;
+}
+
+.widget {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.widget:hover {
+    transform: translateY(-5px);
+}
+
+.widget h3 {
+    color: #007bff;
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+.widget-value {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.widget-link {
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.widget-link:hover {
+    text-decoration: underline;
+}
+
+/* Atividades Recentes */
+.recent-activities {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.recent-activities h2 {
+    font-size: 1.5em;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.recent-activities ul {
+    list-style: none;
+}
+
+.recent-activities li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    color: #555;
+    font-size: 0.95em;
+}
+
+.recent-activities li:last-child {
+    border-bottom: none;
+}
+
+/* Responsividade Básica do Dashboard */
+@media (max-width: 992px) {
+    .dashboard-wrapper {
+        flex-direction: column; /* Sidebar empilha em telas menores */
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding-bottom: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar-nav ul {
+        display: flex; /* Itens da nav em linha no mobile */
+        flex-wrap: wrap; /* Quebra linha se necessário */
+        justify-content: center;
+        gap: 10px; /* Espaçamento entre os itens */
+    }
+
+    .sidebar-nav .nav-item {
+        margin-bottom: 0;
+    }
+
+    .sidebar-nav .nav-item a {
+        padding: 8px 12px;
+        border-left: none; /* Remove a borda esquerda no mobile */
+        border-bottom: 3px solid transparent; /* Adiciona uma borda inferior */
+    }
+
+    .sidebar-nav .nav-item a:hover,
+    .sidebar-nav .nav-item.active a {
+        border-bottom-color: #007bff; /* Borda inferior azul no hover/ativo */
+        padding-left: 12px; /* Remove ajuste de padding */
+    }
+
+    .sidebar-nav .logout-item {
+        margin-top: 15px;
+        border-top: none;
+        padding-top: 0;
+        width: 100%;
+        text-align: center;
+    }
+
+    .sidebar-header {
+        margin-bottom: 15px;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .navbar h1 {
+        margin-bottom: 10px;
+    }
+
+    .dashboard-overview {
+        grid-template-columns: 1fr; /* Um card por linha em telas muito pequenas */
+    }
+}
+
+/* Aqui abaixo vai ficar a estilização para a tela de clientes.  */ 
+
+/* Estilos para Conteúdo de Seções (aplicável a todas as telas após o dashboard) */
+.section-content {
+    padding: 20px 0; /* Espaçamento interno */
+}
+
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px; /* Espaçamento entre os cards */
+    overflow: hidden; /* Garante que conteúdos que transbordam (tabelas) sejam tratados */
+}
+
+.card-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f7f9fc;
+}
+
+.card-header h2 {
+    font-size: 1.4em;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Barra de Busca */
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-bar input[type="text"] {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Tabelas de Dados */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.data-table th, .data-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.data-table th {
+    background-color: #f0f2f5;
+    color: #555;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.85em;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Botões de Ação na Tabela */
+.btn-action {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-left: 10px;
+    transition: color 0.2s ease;
+}
+
+.btn-action:hover {
+    color: #0056b3;
+}
+
+.btn-action.delete-btn {
+    color: #dc3545;
+}
+.btn-action.delete-btn:hover {
+    color: #a51c2f;
+}
+
+/* Paginação */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.pagination button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.pagination span {
+    font-size: 0.95em;
+    color: #555;
+}
+
+/* Formulário de Clientes (dentro do Card) */
+.client-form .input-group {
+    margin-bottom: 15px; /* Espaçamento menor entre campos do formulário */
+}
+
+/* Responsividade para Tabelas (se necessário, para telas menores) */
+@media (max-width: 768px) {
+    .data-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto; /* Permite scroll horizontal em tabelas grandes */
+        -webkit-overflow-scrolling: touch;
+    }
+    .data-table thead, .data-table tbody, .data-table th, .data-table td, .data-table tr {
+        display: block; /* Cada elemento da tabela se torna um bloco */
+    }
+    .data-table thead tr {
+        position: absolute; /* Esconde o cabeçalho original */
+        top: -9999px;
+        left: -9999px;
+    }
+    .data-table tr {
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+    }
+    .data-table td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%; /* Espaço para o label "fake" */
+        text-align: right;
+    }
+    .data-table td:before {
+        content: attr(data-label); /* Usa o atributo data-label (se adicionarmos ao HTML) */
+        position: absolute;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: #666;
+    }
+    /* Estilo para ajustar os botões de ação em telas pequenas */
+    .data-table td:last-child {
+        text-align: center;
+    }
+    .data-table .btn-action {
+        margin: 5px;
+    }
+}
+
+/* Aqui vou estilizar a tela de agendamentos */
+
+/* Filtros (geral) */
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Garante que os filtros quebrem linha em telas menores */
+}
+
+.filter-bar .input-date,
+.filter-bar .input-select,
+.filter-bar .input-text-filter {
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    flex: 1; /* Faz os inputs ocuparem espaço igual */
+    min-width: 150px; /* Largura mínima para inputs */
+}
+
+/* Badges de Status (para Agendamentos, Vendas, etc.) */
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+
+.status-badge.pending { /* Laranja/Amarelo */
+    background-color: #ffc107;
+    color: #333;
+}
+
+.status-badge.confirmed { /* Azul */
+    background-color: #007bff;
+}
+
+.status-badge.completed { /* Verde */
+    background-color: #28a745;
+}
+
+.status-badge.cancelled { /* Vermelho */
+    background-color: #dc3545;
+}
+
+/* Ajustes para o formulário de Agendamento/Outros */
+.appointment-form .input-group select,
+.appointment-form .input-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+
+.appointment-form .input-group select:focus,
+.appointment-form .input-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Novos botões de ação na tabela para Agendamentos */
+.btn-action.complete-btn {
+    color: #28a745; /* Verde */
+}
+.btn-action.complete-btn:hover {
+    color: #1e7e34;
+}
+.btn-action.cancel-btn {
+    color: #dc3545; /* Vermelho */
+}
+.btn-action.cancel-btn:hover {
+    color: #a51c2f;
+}
+.btn-action.view-btn {
+    color: #17a2b8; /* Azul claro/Ciano */
+}
+.btn-action.view-btn:hover {
+    color: #138496;
+}
+
+/* Responsividade para filtros em telas menores */
+@media (max-width: 600px) {
+    .filter-bar {
+        flex-direction: column; /* Filtros empilham */
+    }
+    .filter-bar .input-date,
+    .filter-bar .input-select,
+    .filter-bar .input-text-filter {
+        min-width: unset; /* Remove largura mínima */
+    }
+}
+
+/* Estilizando a tela estoque */ 
+
+/* Badges de Status de Estoque */
+.stock-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+
+.stock-badge.ok { /* Verde para estoque normal */
+    background-color: #28a745;
+}
+
+.stock-badge.low { /* Laranja/Amarelo para estoque baixo */
+    background-color: #ffc107;
+    color: #333; /* Texto escuro para contraste */
+}
+
+.stock-badge.critical { /* Vermelho para estoque crítico */
+    background-color: #dc3545;
+}
+
+/* Botões de ação específicos do estoque */
+.btn-action.add-stock-btn {
+    color: #17a2b8; /* Azul claro */
+}
+.btn-action.add-stock-btn:hover {
+    color: #138496;
+}
+
+.btn-action.remove-stock-btn {
+    color: #ffc107; /* Laranja */
+}
+.btn-action.remove-stock-btn:hover {
+    color: #d39e00;
+}
+
+/* Estilo para campos de formulário de número */
+.item-stock-form .input-group input[type="number"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+}
+.item-stock-form .input-group input[type="number"]:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Estilizando a tela de vendas */ 
+
+/* Layout da Tela de Vendas (Grid de 2 colunas) */
+.sales-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Coluna de input/itens maior que histórico */
+    gap: 20px; /* Espaçamento entre as colunas */
+    align-items: start; /* Alinha o topo das colunas */
+}
+
+@media (max-width: 992px) {
+    .sales-grid {
+        grid-template-columns: 1fr; /* Em telas menores, as colunas empilham */
+    }
+}
+
+/* Seção de Input de Vendas */
+.sales-input-section .card-body {
+    padding-bottom: 0; /* Remove padding inferior para alinhar melhor o form */
+}
+
+/* Resultados da Busca de Produtos/Serviços */
+.search-results-list {
+    list-style: none;
+    max-height: 150px; /* Altura máxima para a lista de resultados */
+    overflow-y: auto; /* Adiciona scroll se houver muitos resultados */
+    border: 1px solid #ddd;
+    border-top: none; /* Conecta com o input visualmente */
+    border-radius: 0 0 5px 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin-top: -10px; /* Move para cima para se conectar ao input */
+    z-index: 10; /* Garante que fique acima de outros elementos */
+    position: relative;
+}
+
+.search-results-list li {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s ease;
+}
+
+.search-results-list li:hover {
+    background-color: #f0f2f5;
+}
+
+.search-results-list li:last-child {
+    border-bottom: none;
+}
+
+/* Tabela de Itens da Venda */
+.sale-items-table .item-qty-input {
+    width: 60px; /* Largura menor para o campo de quantidade */
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.sale-items-table .item-qty-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Sumário da Venda */
+.sale-summary {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed #ddd; /* Linha tracejada */
+    text-align: right;
+}
+
+.sale-summary p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.sale-summary h3 {
+    font-size: 1.8em;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.sale-summary span {
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Botões de Ação na Tabela de Vendas */
+.btn-action.delete-item-btn {
+    color: #dc3545;
+}
+.btn-action.delete-item-btn:hover {
+    color: #a51c2f;
+}
+.btn-action.print-btn {
+    color: #6c757d; /* Cinza */
+}
+.btn-action.print-btn:hover {
+    color: #5a6268;
+}
+
+/* Estilizando a tela Financeiro. */ 
+
+/* Cards de Resumo Financeiro */
+.finance-summary-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.finance-summary-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+.finance-summary-card .widget-value {
+    font-size: 3em; /* Valor maior para destaque */
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.finance-summary-card .icon-summary {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    font-size: 3em;
+    color: rgba(255, 255, 255, 0.3); /* Ícone semi-transparente */
+    pointer-events: none; /* Garante que não interfira no clique */
+}
+
+/* Cores específicas para os cards de resumo financeiro */
+.income-card {
+    background: linear-gradient(135deg, #28a745, #218838); /* Verde para receita */
+    color: white;
+}
+.income-card .widget-value {
+    color: white;
+}
+
+.expense-card {
+    background: linear-gradient(135deg, #dc3545, #c82333); /* Vermelho para despesa */
+    color: white;
+}
+.expense-card .widget-value {
+    color: white;
+}
+
+.balance-card {
+    background: linear-gradient(135deg, #007bff, #0056b3); /* Azul para saldo */
+    color: white;
+}
+.balance-card .widget-value {
+    color: white;
+}
+
+/* Botões de ação da tabela financeira */
+.btn-action.pay-receive-btn {
+    color: #28a745; /* Verde para pagar/receber */
+}
+.btn-action.pay-receive-btn:hover {
+    color: #1e7e34;
+}
+
+/* Estilizando a tela de configurações */ 
+
+/* Abas de Configuração */
+.config-tabs {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #eee;
+    gap: 5px;
+    flex-wrap: wrap; /* Permite que as abas quebrem linha */
+}
+
+.config-tabs .tab-button {
+    background-color: #f7f9fc;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #555;
+    border-radius: 8px 8px 0 0;
+    transition: background-color 0.3s ease, color 0.3s ease, border-bottom-color 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.config-tabs .tab-button:hover {
+    background-color: #e9ecef;
+    color: #333;
+}
+
+.config-tabs .tab-button.active {
+    background-color: #ffffff;
+    color: #007bff;
+    font-weight: bold;
+    border-bottom: 2px solid #007bff;
+}
+
+.config-tabs .tab-button i {
+    margin-right: 8px;
+}
+
+/* Conteúdo das Abas */
+.tab-content {
+    /* Por padrão, controlaremos a exibição via JS */
+    margin-top: 20px;
+}
+
+/* Preview do Logo (Configurações Gerais) */
+.current-logo-preview {
+    max-width: 150px;
+    height: auto;
+    display: block;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+/* Estilo para checkboxes com label ao lado */
+.input-group.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.input-group.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2); /* Aumenta um pouco o checkbox */
+}
+
+.input-group.checkbox-group label {
+    margin-bottom: 0; /* Remove a margem inferior padrão da label */
+    font-weight: normal; /* Labels de checkbox geralmente não são bold */
+}
+
+/* Help text para campos */
+.help-text {
+    font-size: 0.85em;
+    color: #777;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+/* Responsividade para abas */
+@media (max-width: 768px) {
+    .config-tabs {
+        flex-direction: column; /* Abas empilham */
+        border-bottom: none; /* Remove a borda inferior na barra */
+    }
+    .config-tabs .tab-button {
+        border-radius: 5px; /* Arredonda todas as bordas */
+        margin-bottom: 5px;
+        border-bottom: 1px solid #eee; /* Borda inferior para cada botão */
+        width: 100%; /* Ocupa largura total */
+        text-align: left;
+    }
+    .config-tabs .tab-button.active {
+        border-bottom: 1px solid #007bff; /* Mantém a borda inferior para ativo */
+    }
+}

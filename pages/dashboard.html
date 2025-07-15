@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LP Creative Solutions  - Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css"> <link rel="stylesheet" href="../css/dashboard.css"> </head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/images/logo-lp.jpg" alt="LP Creative Solutions Logo" class="sidebar-logo">
+                <h3>LP Creative Solutions System</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active"><a href="dashboard.html"><i class="icon-dashboard"></i> Dashboard</a></li>
+                    <li class="nav-item"><a href="clientes.html"><i class="icon-clients"></i> Clientes e Pets</a></li>
+                    <li class="nav-item"><a href="agendamentos.html"><i class="icon-calendar"></i> Agendamentos</a></li>
+                    <li class="nav-item"><a href="estoque.html"><i class="icon-stock"></i> Estoque</a></li>
+                    <li class="nav-item"><a href="vendas.html"><i class="icon-sales"></i> Vendas</a></li>
+                    <li class="nav-item"><a href="financeiro.html"><i class="icon-finance"></i> Financeiro</a></li>
+                    <li class="nav-item"><a href="veterinario.html"><i class="icon-vet"></i> Veterinário</a></li>
+                    <li class="nav-item"><a href="configuracoes.html"><i class="icon-settings"></i> Configurações</a></li>
+                    <li class="nav-item logout-item"><a href="index.html"><i class="icon-logout"></i> Sair</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="navbar">
+                <h1>Dashboard</h1>
+                <div class="user-info">
+                    <span class="user-name">Olá, Nome do Usuário!</span>
+                    </div>
+            </header>
+
+            <section class="dashboard-overview">
+                <div class="widget">
+                    <h3>Agendamentos Hoje</h3>
+                    <p class="widget-value">5</p>
+                    <a href="agendamentos.html" class="widget-link">Ver todos</a>
+                </div>
+                <div class="widget">
+                    <h3>Estoque Baixo</h3>
+                    <p class="widget-value">3 itens</p>
+                    <a href="estoque.html" class="widget-link">Ver produtos</a>
+                </div>
+                <div class="widget">
+                    <h3>Total de Vendas (Mês)</h3>
+                    <p class="widget-value">R$ 1.500,00</p>
+                    <a href="vendas.html" class="widget-link">Ver relatório</a>
+                </div>
+                </section>
+
+            <section class="recent-activities">
+                <h2>Atividades Recentes</h2>
+                <ul>
+                    <li>Agendamento de Banho e Tosa para Rex (Cliente: João Silva) - 10/07/2025 14:00</li>
+                    <li>Venda: Ração Premium para Gatos (Cliente: Maria Souza)</li>
+                    <li>Novo cliente cadastrado: Ana Paula Mendes</li>
+                    <li>Estoque: Entrada de 10 Shampoo para Cães</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/dashboard.js"></script> </body>
+</html>

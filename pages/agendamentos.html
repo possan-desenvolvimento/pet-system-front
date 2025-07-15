@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LP Creative Solutions System</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/images/logo-lp.jpg" alt="LP Creative Solutions Logo" class="sidebar-logo">
+                <h3>LP Creative Solutions System</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li class="nav-item"><a href="clientes.html"><i class="fas fa-users"></i> Clientes e Pets</a></li>
+                    <li class="nav-item active"><a href="agendamentos.html"><i class="fas fa-calendar-alt"></i> Agendamentos</a></li>
+                    <li class="nav-item"><a href="estoque.html"><i class="fas fa-boxes"></i> Estoque</a></li>
+                    <li class="nav-item"><a href="vendas.html"><i class="fas fa-cash-register"></i> Vendas</a></li>
+                    <li class="nav-item"><a href="financeiro.html"><i class="fas fa-dollar-sign"></i> Financeiro</a></li>
+                    <li class="nav-item"><a href="veterinario.html"><i class="fas fa-user-md"></i> Veterinário</a></li>
+                    <li class="nav-item"><a href="configuracoes.html"><i class="fas fa-cog"></i> Configurações</a></li>
+                    <li class="nav-item logout-item"><a href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="navbar">
+                <h1>Agendamentos</h1>
+                <div class="user-info">
+                    <span class="user-name">Olá, Nome do Usuário!</span>
+                </div>
+            </header>
+
+            <section class="section-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Lista de Agendamentos</h2>
+                        <button class="btn-primary" id="btnNovoAgendamento"><i class="fas fa-plus"></i> Novo Agendamento</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="filter-bar" style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                            <input type="date" id="filterDate" class="input-date">
+                            <select id="filterService" class="input-select">
+                                <option value="">Todos os Serviços</option>
+                                <option value="banho">Banho</option>
+                                <option value="tosa">Tosa</option>
+                                <option value="consulta">Consulta</option>
+                            </select>
+                            <input type="text" id="filterClientPet" placeholder="Buscar por cliente/pet..." class="input-text-filter">
+                            <button class="btn-secondary"><i class="fas fa-filter"></i> Filtrar</button>
+                        </div>
+
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Data/Hora</th>
+                                    <th>Serviço</th>
+                                    <th>Cliente</th>
+                                    <th>Pet</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>10/07/2025 10:00</td>
+                                    <td>Banho</td>
+                                    <td>João Silva</td>
+                                    <td>Rex</td>
+                                    <td><span class="status-badge pending">Pendente</span></td>
+                                    <td>
+                                        <button class="btn-action edit-btn" title="Editar Agendamento"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-action complete-btn" title="Marcar como Concluído"><i class="fas fa-check-circle"></i></button>
+                                        <button class="btn-action cancel-btn" title="Cancelar Agendamento"><i class="fas fa-times-circle"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>10/07/2025 14:30</td>
+                                    <td>Consulta</td>
+                                    <td>Maria Souza</td>
+                                    <td>Fofura</td>
+                                    <td><span class="status-badge confirmed">Confirmado</span></td>
+                                    <td>
+                                        <button class="btn-action edit-btn" title="Editar Agendamento"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-action complete-btn" title="Marcar como Concluído"><i class="fas fa-check-circle"></i></button>
+                                        <button class="btn-action cancel-btn" title="Cancelar Agendamento"><i class="fas fa-times-circle"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>09/07/2025 09:00</td>
+                                    <td>Tosa</td>
+                                    <td>Carlos Lima</td>
+                                    <td>Thor</td>
+                                    <td><span class="status-badge completed">Concluído</span></td>
+                                    <td>
+                                        <button class="btn-action edit-btn" title="Editar Agendamento"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-action view-btn" title="Ver Detalhes"><i class="fas fa-eye"></i></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                        </table>
+                        <div class="pagination">
+                            <button>&laquo; Anterior</button>
+                            <span>Página 1 de 3</span>
+                            <button>Próxima &raquo;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="formAgendamento" style="display: none;">
+                    <div class="card-header">
+                        <h2>Novo Agendamento</h2>
+                        <button class="btn-secondary" id="btnVoltarAgendamentoLista"><i class="fas fa-arrow-left"></i> Voltar</button>
+                    </div>
+                    <div class="card-body">
+                        <form class="appointment-form">
+                            <input type="hidden" id="agendamentoId">
+                            <div class="input-group">
+                                <label for="selectCliente">Cliente:</label>
+                                <select id="selectCliente" name="selectCliente" required>
+                                    <option value="">Selecione um cliente</option>
+                                    <option value="1">João Silva</option>
+                                    <option value="2">Maria Souza</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="selectPet">Pet:</label>
+                                <select id="selectPet" name="selectPet" required>
+                                    <option value="">Selecione um pet</option>
+                                    <option value="1">Rex (João Silva)</option>
+                                    <option value="2">Luna (João Silva)</option>
+                                    <option value="3">Fofura (Maria Souza)</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="agendamentoServico">Serviço:</label>
+                                <select id="agendamentoServico" name="agendamentoServico" required>
+                                    <option value="">Selecione o serviço</option>
+                                    <option value="banho">Banho</option>
+                                    <option value="tosa">Tosa</option>
+                                    <option value="consulta">Consulta Veterinária</option>
+                                    <option value="vacina">Vacinação</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="agendamentoData">Data:</label>
+                                <input type="date" id="agendamentoData" name="agendamentoData" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="agendamentoHora">Hora:</label>
+                                <input type="time" id="agendamentoHora" name="agendamentoHora" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="agendamentoObservacoes">Observações:</label>
+                                <textarea id="agendamentoObservacoes" name="agendamentoObservacoes" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary"><i class="fas fa-calendar-plus"></i> Salvar Agendamento</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="src/js/agendamentos.js"></script> </body>
+</html>

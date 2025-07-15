@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LP Creative Solutions System</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/images/logo-lp.jpg" alt="LP Creative Solutions Logo" class="sidebar-logo">
+                <h3>LP Creative Solutions System</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li class="nav-item"><a href="clientes.html"><i class="fas fa-users"></i> Clientes e Pets</a></li>
+                    <li class="nav-item"><a href="agendamentos.html"><i class="fas fa-calendar-alt"></i> Agendamentos</a></li>
+                    <li class="nav-item"><a href="estoque.html"><i class="fas fa-boxes"></i> Estoque</a></li>
+                    <li class="nav-item"><a href="vendas.html"><i class="fas fa-cash-register"></i> Vendas</a></li>
+                    <li class="nav-item"><a href="financeiro.html"><i class="fas fa-dollar-sign"></i> Financeiro</a></li>
+                    <li class="nav-item active"><a href="veterinario.html"><i class="fas fa-user-md"></i> Veterinário</a></li>
+                    <li class="nav-item"><a href="configuracoes.html"><i class="fas fa-cog"></i> Configurações</a></li>
+                    <li class="nav-item logout-item"><a href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="navbar">
+                <h1>Módulo Veterinário</h1>
+                <div class="user-info">
+                    <span class="user-name">Olá, Nome do Usuário!</span>
+                </div>
+            </header>
+
+            <section class="section-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Histórico Clínico dos Pets</h2>
+                        <button class="btn-primary" id="btnNovoRegistroVeterinario"><i class="fas fa-plus"></i> Novo Registro</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="filter-bar" style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                            <input type="text" id="filterPetNameVet" placeholder="Buscar por nome do Pet..." class="input-text-filter">
+                            <input type="date" id="filterRecordDateVet" class="input-date">
+                            <select id="filterRecordTypeVet" class="input-select">
+                                <option value="">Tipo de Registro</option>
+                                <option value="consulta">Consulta</option>
+                                <option value="vacina">Vacinação</option>
+                                <option value="exame">Exame</option>
+                                <option value="tratamento">Tratamento</option>
+                            </select>
+                            <button class="btn-secondary"><i class="fas fa-filter"></i> Filtrar</button>
+                            <button class="btn-secondary"><i class="fas fa-sync-alt"></i> Limpar Filtros</button>
+                        </div>
+
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Pet</th>
+                                    <th>Cliente</th>
+                                    <th>Tipo de Registro</th>
+                                    <th>Descrição Breve</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>01/07/2025</td>
+                                    <td>Rex (Cão)</td>
+                                    <td>João Silva</td>
+                                    <td>Consulta</td>
+                                    <td>Revisão de rotina, sem anormalidades.</td>
+                                    <td>
+                                        <button class="btn-action view-btn" title="Ver Detalhes"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-action edit-btn" title="Editar Registro"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-action delete-btn" title="Excluir Registro"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>05/06/2025</td>
+                                    <td>Fofura (Gato)</td>
+                                    <td>Maria Souza</td>
+                                    <td>Vacinação</td>
+                                    <td>Vacina V4 anual aplicada.</td>
+                                    <td>
+                                        <button class="btn-action view-btn"><i class="fas fa-eye"></i></button>
+                                        <button class="btn-action edit-btn"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-action delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                        </table>
+                        <div class="pagination">
+                            <button>&laquo; Anterior</button>
+                            <span>Página 1 de 2</span>
+                            <button>Próxima &raquo;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="formRegistroVeterinario" style="display: none;">
+                    <div class="card-header">
+                        <h2>Registrar Novo Histórico Veterinário</h2>
+                        <button class="btn-secondary" id="btnVoltarRegistroLista"><i class="fas fa-arrow-left"></i> Voltar</button>
+                    </div>
+                    <div class="card-body">
+                        <form class="vet-record-form">
+                            <input type="hidden" id="registroVetId">
+                            <div class="input-group">
+                                <label for="selectVetPet">Pet:</label>
+                                <select id="selectVetPet" name="selectVetPet" required>
+                                    <option value="">Selecione o Pet (e Cliente)</option>
+                                    <option value="1">Rex (João Silva)</option>
+                                    <option value="2">Fofura (Maria Souza)</option>
+                                    </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="registroVetTipo">Tipo de Registro:</label>
+                                <select id="registroVetTipo" name="registroVetTipo" required>
+                                    <option value="">Selecione o Tipo</option>
+                                    <option value="consulta">Consulta</option>
+                                    <option value="vacina">Vacinação</option>
+                                    <option value="exame">Exame</option>
+                                    <option value="tratamento">Tratamento</option>
+                                    <option value="cirurgia">Cirurgia</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="registroVetData">Data do Registro:</label>
+                                <input type="date" id="registroVetData" name="registroVetData" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="registroVetDescricao">Descrição Detalhada:</label>
+                                <textarea id="registroVetDescricao" name="registroVetDescricao" rows="6" placeholder="Diagnóstico, procedimentos, observações, etc." required></textarea>
+                            </div>
+                            <div class="input-group">
+                                <label for="registroVetProximoPasso">Próximo Passo/Retorno (Opcional):</label>
+                                <input type="text" id="registroVetProximoPasso" name="registroVetProximoPasso" placeholder="Ex: Retorno em 30 dias para reavaliação">
+                            </div>
+                            <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar Registro</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="src/js/veterinario.js"></script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LP Creative Solutions System</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/images/logo-lp.jpg" alt="LP Creative Solutions Logo" class="sidebar-logo">
+                <h3>LP Creative Solutions System</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li class="nav-item"><a href="clientes.html"><i class="fas fa-users"></i> Clientes e Pets</a></li>
+                    <li class="nav-item"><a href="agendamentos.html"><i class="fas fa-calendar-alt"></i> Agendamentos</a></li>
+                    <li class="nav-item"><a href="estoque.html"><i class="fas fa-boxes"></i> Estoque</a></li>
+                    <li class="nav-item"><a href="vendas.html"><i class="fas fa-cash-register"></i> Vendas</a></li>
+                    <li class="nav-item"><a href="financeiro.html"><i class="fas fa-dollar-sign"></i> Financeiro</a></li>
+                    <li class="nav-item"><a href="veterinario.html"><i class="fas fa-user-md"></i> Veterinário</a></li>
+                    <li class="nav-item active"><a href="configuracoes.html"><i class="fas fa-cog"></i> Configurações</a></li>
+                    <li class="nav-item logout-item"><a href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="navbar">
+                <h1>Configurações</h1>
+                <div class="user-info">
+                    <span class="user-name">Olá, Nome do Usuário!</span>
+                </div>
+            </header>
+
+            <section class="section-content">
+                <div class="config-tabs">
+                    <button class="tab-button active" data-tab="geral"><i class="fas fa-info-circle"></i> Geral</button>
+                    <button class="tab-button" data-tab="usuarios"><i class="fas fa-user-friends"></i> Usuários</button>
+                    <button class="tab-button" data-tab="seguranca"><i class="fas fa-lock"></i> Segurança</button>
+                    <button class="tab-button" data-tab="notificacoes"><i class="fas fa-bell"></i> Notificações</button>
+                </div>
+
+                <div id="tab-geral" class="tab-content active">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Informações da Empresa</h2>
+                        </div>
+                        <div class="card-body">
+                            <form class="company-info-form">
+                                <div class="input-group">
+                                    <label for="companyName">Nome da Empresa:</label>
+                                    <input type="text" id="companyName" name="companyName" value="DVJPet Soluções" required>
+                                </div>
+                                <div class="input-group">
+                                    <label for="companyCnpj">CNPJ:</label>
+                                    <input type="text" id="companyCnpj" name="companyCnpj" value="XX.XXX.XXX/0001-XX">
+                                </div>
+                                <div class="input-group">
+                                    <label for="companyAddress">Endereço:</label>
+                                    <input type="text" id="companyAddress" name="companyAddress" value="Rua Exemplo, 123 - Cidade - UF">
+                                </div>
+                                <div class="input-group">
+                                    <label for="companyPhone">Telefone:</label>
+                                    <input type="tel" id="companyPhone" name="companyPhone" value="(XX) XXXX-XXXX">
+                                </div>
+                                <div class="input-group">
+                                    <label for="companyEmail">Email:</label>
+                                    <input type="email" id="companyEmail" name="companyEmail" value="contato@dvjpet.com.br">
+                                </div>
+                                <div class="input-group">
+                                    <label for="companyLogoUpload">Logo da Empresa:</label>
+                                    <input type="file" id="companyLogoUpload" name="companyLogoUpload" accept="image/*">
+                                    <p class="help-text">Envie uma imagem para o logo do sistema.</p>
+                                    <img src="assets/images/logo-lp.jpg" alt="Logo Atual" class="current-logo-preview">
+                                </div>
+                                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar Informações</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-usuarios" class="tab-content" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Gestão de Usuários</h2>
+                            <button class="btn-primary" id="btnNovoUsuario"><i class="fas fa-user-plus"></i> Novo Usuário</button>
+                        </div>
+                        <div class="card-body">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Cargo/Função</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Administrador Geral</td>
+                                        <td>admin@dvjpet.com.br</td>
+                                        <td>Administrador</td>
+                                        <td>Ativo</td>
+                                        <td>
+                                            <button class="btn-action edit-btn" title="Editar Usuário"><i class="fas fa-edit"></i></button>
+                                            <button class="btn-action delete-btn" title="Remover Usuário"><i class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Gerente de Loja</td>
+                                        <td>gerente@dvjpet.com.br</td>
+                                        <td>Gerente</td>
+                                        <td>Ativo</td>
+                                        <td>
+                                            <button class="btn-action edit-btn"><i class="fas fa-edit"></i></button>
+                                            <button class="btn-action delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="pagination">
+                                <button>&laquo; Anterior</button>
+                                <span>Página 1 de 1</span>
+                                <button>Próxima &raquo;</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" id="formUsuario" style="display: none;">
+                        <div class="card-header">
+                            <h2>Cadastro de Usuário</h2>
+                            <button class="btn-secondary" id="btnVoltarUsuarios"><i class="fas fa-arrow-left"></i> Voltar</button>
+                        </div>
+                        <div class="card-body">
+                            <form class="user-form">
+                                <input type="hidden" id="userId">
+                                <div class="input-group">
+                                    <label for="userName">Nome Completo:</label>
+                                    <input type="text" id="userName" name="userName" required>
+                                </div>
+                                <div class="input-group">
+                                    <label for="userEmail">Email:</label>
+                                    <input type="email" id="userEmail" name="userEmail" required>
+                                </div>
+                                <div class="input-group">
+                                    <label for="userRole">Cargo/Função:</label>
+                                    <select id="userRole" name="userRole" required>
+                                        <option value="admin">Administrador</option>
+                                        <option value="gerente">Gerente</option>
+                                        <option value="atendente">Atendente</option>
+                                        <option value="veterinario">Veterinário</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="userPassword">Senha (deixe em branco para manter a atual):</label>
+                                    <input type="password" id="userPassword" name="userPassword">
+                                </div>
+                                <div class="input-group">
+                                    <label for="userConfirmPassword">Confirmar Senha:</label>
+                                    <input type="password" id="userConfirmPassword" name="userConfirmPassword">
+                                </div>
+                                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar Usuário</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-seguranca" class="tab-content" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Configurações de Segurança</h2>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="input-group checkbox-group">
+                                    <input type="checkbox" id="twoFactorAuth">
+                                    <label for="twoFactorAuth">Ativar Autenticação de Dois Fatores (2FA)</label>
+                                </div>
+                                <div class="input-group">
+                                    <label for="passwordPolicy">Política de Senhas:</label>
+                                    <textarea id="passwordPolicy" rows="3" readonly>Mínimo 8 caracteres, com letras maiúsculas e minúsculas, números e símbolos.</textarea>
+                                </div>
+                                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar Configurações</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="tab-notificacoes" class="tab-content" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Preferências de Notificações</h2>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="input-group checkbox-group">
+                                    <input type="checkbox" id="notifyNewAppointment" checked>
+                                    <label for="notifyNewAppointment">Notificar sobre novos agendamentos</label>
+                                </div>
+                                <div class="input-group checkbox-group">
+                                    <input type="checkbox" id="notifyLowStock" checked>
+                                    <label for="notifyLowStock">Notificar sobre estoque baixo</label>
+                                </div>
+                                <div class="input-group checkbox-group">
+                                    <input type="checkbox" id="notifyNewClient">
+                                    <label for="notifyNewClient">Notificar sobre novos clientes</label>
+                                </div>
+                                <div class="input-group">
+                                    <label for="notificationEmail">Email para Notificações:</label>
+                                    <input type="email" id="notificationEmail" value="alertas@dvjpet.com.br">
+                                </div>
+                                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar Preferências</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <script src="src/js/configuracoes.js"></script>
+</body>
+</html>

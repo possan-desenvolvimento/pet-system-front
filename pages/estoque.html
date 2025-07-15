@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LP Creative Solutions System</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/images/logo-lp.jpg" alt="LP Creative Solutions Logo" class="sidebar-logo">
+                <h3>LP Creative Solutions System</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li class="nav-item"><a href="clientes.html"><i class="fas fa-users"></i> Clientes e Pets</a></li>
+                    <li class="nav-item"><a href="agendamentos.html"><i class="fas fa-calendar-alt"></i> Agendamentos</a></li>
+                    <li class="nav-item active"><a href="estoque.html"><i class="fas fa-boxes"></i> Estoque</a></li>
+                    <li class="nav-item"><a href="vendas.html"><i class="fas fa-cash-register"></i> Vendas</a></li>
+                    <li class="nav-item"><a href="financeiro.html"><i class="fas fa-dollar-sign"></i> Financeiro</a></li>
+                    <li class="nav-item"><a href="veterinario.html"><i class="fas fa-user-md"></i> Veterinário</a></li>
+                    <li class="nav-item"><a href="configuracoes.html"><i class="fas fa-cog"></i> Configurações</a></li>
+                    <li class="nav-item logout-item"><a href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="navbar">
+                <h1>Controle de Estoque</h1>
+                <div class="user-info">
+                    <span class="user-name">Olá, Nome do Usuário!</span>
+                </div>
+            </header>
+
+            <section class="section-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Produtos e Serviços</h2>
+                        <div>
+                            <button class="btn-secondary" id="btnGerenciarCategorias"><i class="fas fa-tags"></i> Categorias</button>
+                            <button class="btn-primary" id="btnNovoItemEstoque"><i class="fas fa-plus"></i> Novo Produto/Serviço</button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="filter-bar" style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                            <input type="text" id="filterItemName" placeholder="Buscar por nome..." class="input-text-filter">
+                            <select id="filterItemType" class="input-select">
+                                <option value="">Tipo (Produto/Serviço)</option>
+                                <option value="produto">Produto</option>
+                                <option value="servico">Serviço</option>
+                            </select>
+                            <select id="filterItemCategory" class="input-select">
+                                <option value="">Todas as Categorias</option>
+                                <option value="racao">Ração</option>
+                                <option value="acessorios">Acessórios</option>
+                                <option value="higiene">Higiene</option>
+                                <option value="banho">Serviços de Banho</option>
+                                </select>
+                            <button class="btn-secondary"><i class="fas fa-filter"></i> Filtrar</button>
+                            <button class="btn-secondary"><i class="fas fa-sync-alt"></i> Limpar Filtros</button>
+                        </div>
+
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Tipo</th>
+                                    <th>Categoria</th>
+                                    <th>Estoque Atual</th>
+                                    <th>Preço Venda</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Ração Premium Cães Adultos 15kg</td>
+                                    <td>Produto</td>
+                                    <td>Ração</td>
+                                    <td><span class="stock-badge low">12</span></td>
+                                    <td>R$ 189,90</td>
+                                    <td>
+                                        <button class="btn-action edit-btn" title="Editar Item"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-action add-stock-btn" title="Adicionar Estoque"><i class="fas fa-plus-square"></i></button>
+                                        <button class="btn-action remove-stock-btn" title="Remover Estoque"><i class="fas fa-minus-square"></i></button>
+                                        <button class="btn-action delete-btn" title="Excluir Item"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Shampoo Neutro para Filhotes 500ml</td>
+                                    <td>Produto</td>
+                                    <td>Higiene</td>
+                                    <td><span class="stock-badge ok">45</span></td>
+                                    <td>R$ 35,00</td>
+                                    <td>
+                                        <button class="btn-action edit-btn"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-action add-stock-btn"><i class="fas fa-plus-square"></i></button>
+                                        <button class="btn-action remove-stock-btn"><i class="fas fa-minus-square"></i></button>
+                                        <button class="btn-action delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Banho e Tosa Completa</td>
+                                    <td>Serviço</td>
+                                    <td>Serviços de Tosa</td>
+                                    <td>N/A</td> <td>R$ 80,00</td>
+                                    <td>
+                                        <button class="btn-action edit-btn"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-action delete-btn"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                        </table>
+                        <div class="pagination">
+                            <button>&laquo; Anterior</button>
+                            <span>Página 1 de 5</span>
+                            <button>Próxima &raquo;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="formItemEstoque" style="display: none;">
+                    <div class="card-header">
+                        <h2>Cadastro de Produto/Serviço</h2>
+                        <button class="btn-secondary" id="btnVoltarEstoqueLista"><i class="fas fa-arrow-left"></i> Voltar</button>
+                    </div>
+                    <div class="card-body">
+                        <form class="item-stock-form">
+                            <input type="hidden" id="itemId">
+                            <div class="input-group">
+                                <label for="itemName">Nome do Item:</label>
+                                <input type="text" id="itemName" name="itemName" required>
+                            </div>
+                            <div class="input-group">
+                                <label for="itemDescription">Descrição:</label>
+                                <textarea id="itemDescription" name="itemDescription" rows="3"></textarea>
+                            </div>
+                            <div class="input-group">
+                                <label for="itemType">Tipo:</label>
+                                <select id="itemType" name="itemType" required>
+                                    <option value="">Selecione o Tipo</option>
+                                    <option value="produto">Produto</option>
+                                    <option value="servico">Serviço</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="itemCategory">Categoria:</label>
+                                <input type="text" id="itemCategory" name="itemCategory" placeholder="Ex: Ração, Higiene, Banho">
+                            </div>
+                            <div class="input-group" id="estoqueInicialGroup">
+                                <label for="itemInitialStock">Estoque Inicial:</label>
+                                <input type="number" id="itemInitialStock" name="itemInitialStock" min="0" value="0">
+                            </div>
+                            <div class="input-group" id="precoCustoGroup">
+                                <label for="itemCostPrice">Preço de Custo (R$):</label>
+                                <input type="number" id="itemCostPrice" name="itemCostPrice" step="0.01" min="0" value="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="itemSalePrice">Preço de Venda (R$):</label>
+                                <input type="number" id="itemSalePrice" name="itemSalePrice" step="0.01" min="0" required>
+                            </div>
+                            <div class="input-group" id="minStockAlertGroup">
+                                <label for="itemMinStockAlert">Alerta de Estoque Mínimo:</label>
+                                <input type="number" id="itemMinStockAlert" name="itemMinStockAlert" min="0" value="0">
+                            </div>
+                            <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar Item</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="src/js/estoque.js"></script>
+</body>
+</html>
