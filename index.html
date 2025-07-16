@@ -4,23 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LPCreative Solutions - Login</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
+    <link rel="stylesheet" href="../css/style.css"> </head>
 <body>
     <div class="login-container">
         <div class="login-header">
-            <img src="assets/images/logo-lp.jpg" alt="LP Creative Solutions Logo" class="company-logo">
+            <img src="../assets/images/logo-lp.jpg" alt="LP Creative Solutions Logo" class="company-logo">
             <h2>Bem-vindo(a) de volta!</h2>
         </div>
-        <form class="login-form">
-            <div class="input-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
-            </div>
+        <form class="login-form" id="loginForm"> <div class="input-group">
+                <label for="username">Usuário (ou Email):</label> <input type="text" id="username" name="username" placeholder="seuusuario" required> </div>
             <div class="input-group">
                 <label for="password">Senha:</label>
                 <input type="password" id="password" name="password" placeholder="********" required>
-                </div>
+            </div>
             <div class="form-actions">
                 <button type="submit" class="btn-primary">Entrar</button>
                 <a href="#" class="forgot-password">Esqueceu a senha?</a>
@@ -30,8 +26,7 @@
                 <button type="button" class="btn-secondary" onclick="location.href='cadastro.html'">Cadastre-se</button>
             </div>
         </form>
-    </div>
+        <div id="message" style="color: red; margin-top: 10px;"></div> </div>
 
-    <script src="js/script.js"></script>
-</body>
+    <script src="js/index.js"></script> </body>
 </html>
