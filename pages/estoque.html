@@ -77,44 +77,9 @@
                                     <th>Ações</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Ração Premium Cães Adultos 15kg</td>
-                                    <td>Produto</td>
-                                    <td>Ração</td>
-                                    <td><span class="stock-badge low">12</span></td>
-                                    <td>R$ 189,90</td>
-                                    <td>
-                                        <button class="btn-action edit-btn" title="Editar Item"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-action add-stock-btn" title="Adicionar Estoque"><i class="fas fa-plus-square"></i></button>
-                                        <button class="btn-action remove-stock-btn" title="Remover Estoque"><i class="fas fa-minus-square"></i></button>
-                                        <button class="btn-action delete-btn" title="Excluir Item"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Shampoo Neutro para Filhotes 500ml</td>
-                                    <td>Produto</td>
-                                    <td>Higiene</td>
-                                    <td><span class="stock-badge ok">45</span></td>
-                                    <td>R$ 35,00</td>
-                                    <td>
-                                        <button class="btn-action edit-btn"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-action add-stock-btn"><i class="fas fa-plus-square"></i></button>
-                                        <button class="btn-action remove-stock-btn"><i class="fas fa-minus-square"></i></button>
-                                        <button class="btn-action delete-btn"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Banho e Tosa Completa</td>
-                                    <td>Serviço</td>
-                                    <td>Serviços de Tosa</td>
-                                    <td>N/A</td> <td>R$ 80,00</td>
-                                    <td>
-                                        <button class="btn-action edit-btn"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-action delete-btn"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                                </tbody>
+                            <tbody id="estoqueTableBody">
+                                <!-- Itens serão adicionados via JS -->
+                            </tbody>
                         </table>
                         <div class="pagination">
                             <button>&laquo; Anterior</button>
@@ -176,6 +141,6 @@
         </main>
     </div>
 
-    <script src="src/js/estoque.js"></script>
+    <script src="../js/estoque.js"></script>
 </body>
 </html>
