@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
     <div class="dashboard-wrapper">
         <aside class="sidebar">
@@ -17,15 +19,19 @@
             </div>
             <nav class="sidebar-nav">
                 <ul>
-                    <li class="nav-item"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li class="nav-item"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                    </li>
                     <li class="nav-item"><a href="clientes.html"><i class="fas fa-users"></i> Clientes e Pets</a></li>
-                    <li class="nav-item"><a href="agendamentos.html"><i class="fas fa-calendar-alt"></i> Agendamentos</a></li>
+                    <li class="nav-item"><a href="agendamentos.html"><i class="fas fa-calendar-alt"></i>
+                            Agendamentos</a></li>
                     <li class="nav-item"><a href="estoque.html"><i class="fas fa-boxes"></i> Estoque</a></li>
                     <li class="nav-item"><a href="vendas.html"><i class="fas fa-cash-register"></i> Vendas</a></li>
-                    <li class="nav-item active"><a href="financeiro.html"><i class="fas fa-dollar-sign"></i> Financeiro</a></li>
+                    <li class="nav-item active"><a href="financeiro.html"><i class="fas fa-dollar-sign"></i>
+                            Financeiro</a></li>
                     <li class="nav-item"><a href="veterinario.html"><i class="fas fa-user-md"></i> Veterinário</a></li>
                     <li class="nav-item"><a href="configuracoes.html"><i class="fas fa-cog"></i> Configurações</a></li>
-                    <li class="nav-item logout-item"><a href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                    <li class="nav-item logout-item"><a href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                    </li>
                 </ul>
             </nav>
         </aside>
@@ -42,7 +48,7 @@
                 <div class="dashboard-overview">
                     <div class="widget finance-summary-card income-card">
                         <h3>Receitas (Mês)</h3>
-                        <p class="widget-value">R$ 0,00</p> 
+                        <p class="widget-value">R$ 0,00</p>
                         <i class="fas fa-plus-circle icon-summary"></i>
                     </div>
                     <div class="widget finance-summary-card expense-card">
@@ -61,8 +67,10 @@
                     <div class="card-header">
                         <h2>Contas a Pagar e Receber</h2>
                         <div>
-                            <button class="btn-primary" id="btnNovaContaPagar"><i class="fas fa-plus"></i> Nova Despesa</button>
-                            <button class="btn-secondary" id="btnNovaContaReceber" style="margin-left: 10px;"><i class="fas fa-plus"></i> Nova Receita</button>
+                            <button class="btn-primary" id="btnNovaContaPagar"><i class="fas fa-plus"></i> Nova
+                                Despesa</button>
+                            <button class="btn-secondary" id="btnNovaContaReceber" style="margin-left: 10px;"><i
+                                    class="fas fa-plus"></i> Nova Receita</button>
                         </div>
                     </div>
                     <div class="card-body">
@@ -79,7 +87,8 @@
                                 <option value="pago">Pago</option>
                                 <option value="recebido">Recebido</option>
                             </select>
-                            <input type="text" id="filterFinanceDescription" placeholder="Descrição..." class="input-text-filter">
+                            <input type="text" id="filterFinanceDescription" placeholder="Descrição..."
+                                class="input-text-filter">
                             <button class="btn-secondary"><i class="fas fa-filter"></i> Filtrar</button>
                             <button class="btn-secondary"><i class="fas fa-sync-alt"></i> Limpar Filtros</button>
                         </div>
@@ -96,7 +105,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                </tbody>
+                            </tbody>
                         </table>
                         <div class="pagination">
                             <button>&laquo; Anterior</button>
@@ -109,7 +118,8 @@
                 <div class="card" id="formFinanca" style="display: none;">
                     <div class="card-header">
                         <h2>Registrar Transação Financeira</h2>
-                        <button class="btn-secondary" id="btnVoltarFinancaLista"><i class="fas fa-arrow-left"></i> Voltar</button>
+                        <button class="btn-secondary" id="btnVoltarFinancaLista"><i class="fas fa-arrow-left"></i>
+                            Voltar</button>
                     </div>
                     <div class="card-body">
                         <form class="finance-form">
@@ -136,7 +146,8 @@
                             </div>
                             <div class="input-group">
                                 <label for="financaCategoria">Categoria:</label>
-                                <input type="text" id="financaCategoria" name="financaCategoria" placeholder="Ex: Aluguel, Vendas, Salários">
+                                <input type="text" id="financaCategoria" name="financaCategoria"
+                                    placeholder="Ex: Aluguel, Vendas, Salários">
                             </div>
                             <div class="input-group">
                                 <label for="financaStatus">Status:</label>
@@ -146,7 +157,25 @@
                                     <option value="recebido">Recebido</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar Transação</button>
+                            <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar
+                                Transação</button>
+
+                            <!-- Adicione esta parte dentro do <form class="finance-form"> -->
+                            <div class="input-group">
+                                <label for="financaFormaPagamento">Forma de Pagamento:</label>
+                                <select id="financaFormaPagamento" name="financaFormaPagamento" required>
+                                    <option value="">Selecione a forma de pagamento</option>
+                                    <option value="dinheiro">Dinheiro</option>
+                                    <option value="cartaoCredito">Cartão de Crédito</option>
+                                    <option value="cartaoDebito">Cartão de Débito</option>
+                                    <option value="pix">PIX</option>
+                                    <option value="boleto">Boleto</option>
+                                    <option value="transferencia">Transferência</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+
+
                         </form>
                     </div>
                 </div>
@@ -156,4 +185,5 @@
 
     <script src="../js/financeiro.js"></script>
 </body>
+
 </html>
