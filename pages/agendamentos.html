@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LP Creative Solutions System</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/main.min.css' rel='stylesheet' />
-    
-    <link href='https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.14/main.css' rel='stylesheet' />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LP Creative Solutions System - Agendamentos</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/main.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.14/main.css" rel="stylesheet" />
 
     <style>
-        /* Estilos adicionais para o calendário e formulário modal */
+        /* Estilos adicionais para o calendário e formulário fixo */
         #calendar {
-            max-width: 900px; /* Ajuste conforme necessário */
+            max-width: 900px;
             margin: 0 auto;
-            background-color: var(--card-bg); /* Use a cor de fundo do seu card */
+            background-color: var(--card-bg);
             border-radius: 8px;
             padding: 20px;
             box-shadow: var(--shadow-light);
@@ -32,89 +33,53 @@
             border-color: var(--primary-dark-color) !important;
         }
 
-        /* Estilos para o Modal */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1000; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
+        /* Formulário fixo */
+        #formAgendamento {
+            max-width: 900px;
+            margin: 20px auto;
             background-color: var(--card-bg);
-            margin: auto;
-            padding: 30px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
+            border-radius: 8px;
+            padding: 20px;
             box-shadow: var(--shadow-dark);
-            position: relative;
         }
 
-        .close-button {
-            color: var(--text-color-light);
-            font-size: 28px;
+        #formAgendamento .input-group label {
             font-weight: bold;
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            cursor: pointer;
+            margin-bottom: 5px;
+            display: block;
         }
 
-        .close-button:hover,
-        .close-button:focus {
-            color: var(--danger-color);
-            text-decoration: none;
-            cursor: pointer;
+        #formAgendamento .input-group input,
+        #formAgendamento .input-group select,
+        #formAgendamento .input-group textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            background-color: var(--input-bg);
+            color: var(--text-color);
         }
 
-        .appointment-form .input-group {
+        #formAgendamento .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
         }
 
-        .appointment-form label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: var(--text-color);
-        }
-
-        .appointment-form input[type="date"],
-        .appointment-form input[type="time"],
-        .appointment-form select,
-        .appointment-form textarea {
-            width: calc(100% - 20px); /* Ajuste para padding */
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            background-color: var(--input-bg);
-            color: var(--text-color);
-            box-sizing: border-box; /* Garante que padding e border não aumentem o width */
-        }
-
-        .appointment-form button {
-            width: 100%;
-            padding: 12px;
-            border-radius: 5px;
-            font-size: 16px;
+        #formAgendamento .btn-secondary {
             cursor: pointer;
-            margin-top: 20px;
         }
     </style>
 </head>
+
 <body>
     <div class="dashboard-wrapper">
         <aside class="sidebar">
             <div class="sidebar-header">
-                <img src="../assets/images/logo-lp.jpg" alt="LP Creative Solutions Logo" class="sidebar-logo">
+                <img src="../assets/images/logo-lp.jpg" alt="LP Creative Solutions Logo" class="sidebar-logo" />
                 <h3>LP Creative Solutions System</h3>
             </div>
             <nav class="sidebar-nav">
@@ -144,63 +109,95 @@
                 <div class="card">
                     <div class="card-header">
                         <h2>Calendário de Agendamentos</h2>
-                        <button class="btn-primary" id="btnNovoAgendamento"><i class="fas fa-plus"></i> Novo Agendamento</button>
+                        <button class="btn-primary" id="btnNovoAgendamento">
+                            <i class="fas fa-plus"></i> Novo Agendamento
+                        </button>
                     </div>
                     <div class="card-body">
-                        <div id="calendar"></div> </div>
+                        <div id="calendar"></div>
+                    </div>
+                </div>
+
+                <!-- Formulário fixo de agendamento -->
+                <div class="card" id="formAgendamento" style="display: none;">
+                    <div class="card-header">
+                        <h2 id="formTitle">Novo Agendamento</h2>
+                        <button class="btn-secondary" id="btnVoltarFormulario">
+                            <i class="fas fa-arrow-left"></i> Voltar ao calendário
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <form id="appointmentForm" class="appointment-form">
+                            <input type="hidden" id="agendamentoId" name="agendamentoId" />
+                            
+                            <div class="input-group">
+                                <label for="inputCliente">Cliente:</label>
+                                <input
+                                    type="text"
+                                    id="inputCliente"
+                                    name="inputCliente"
+                                    list="listaClientes"
+                                    autocomplete="off"
+                                    required
+                                />
+                                <datalist id="listaClientes"></datalist>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="inputPet">Pet:</label>
+                                <input
+                                    type="text"
+                                    id="inputPet"
+                                    name="inputPet"
+                                    list="listaPets"
+                                    autocomplete="off"
+                                    required
+                                />
+                                <datalist id="listaPets"></datalist>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="agendamentoServico">Serviço:</label>
+                                <select id="agendamentoServico" name="agendamentoServico" required>
+                                    <option value="">Selecione o serviço</option>
+                                    <option value="banho">Banho</option>
+                                    <option value="tosa">Tosa</option>
+                                    <option value="consulta">Consulta Veterinária</option>
+                                    <option value="vacina">Vacinação</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="agendamentoData">Data:</label>
+                                <input type="date" id="agendamentoData" name="agendamentoData" required />
+                            </div>
+
+                            <div class="input-group">
+                                <label for="agendamentoHora">Hora:</label>
+                                <input type="time" id="agendamentoHora" name="agendamentoHora" required />
+                            </div>
+
+                            <div class="input-group">
+                                <label for="agendamentoObservacoes">Observações:</label>
+                                <textarea
+                                    id="agendamentoObservacoes"
+                                    name="agendamentoObservacoes"
+                                    rows="3"
+                                ></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-calendar-plus"></i> Salvar Agendamento
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </section>
         </main>
     </div>
 
-    <div id="appointmentModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Novo Agendamento</h2>
-            <form id="appointmentForm" class="appointment-form">
-                <input type="hidden" id="agendamentoId">
-                <div class="input-group">
-                    <label for="selectCliente">Cliente:</label>
-                    <select id="selectCliente" name="selectCliente" required>
-                        <option value="">Selecione um cliente</option>
-                        </select>
-                </div>
-                <div class="input-group">
-                    <label for="selectPet">Pet:</label>
-                    <select id="selectPet" name="selectPet" required>
-                        <option value="">Selecione um pet</option>
-                        </select>
-                </div>
-                <div class="input-group">
-                    <label for="agendamentoServico">Serviço:</label>
-                    <select id="agendamentoServico" name="agendamentoServico" required>
-                        <option value="">Selecione o serviço</option>
-                        <option value="banho">Banho</option>
-                        <option value="tosa">Tosa</option>
-                        <option value="consulta">Consulta Veterinária</option>
-                        <option value="vacina">Vacinação</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label for="agendamentoData">Data:</label>
-                    <input type="date" id="agendamentoData" name="agendamentoData" required>
-                </div>
-                <div class="input-group">
-                    <label for="agendamentoHora">Hora:</label>
-                    <input type="time" id="agendamentoHora" name="agendamentoHora" required>
-                </div>
-                <div class="input-group">
-                    <label for="agendamentoObservacoes">Observações:</label>
-                    <textarea id="agendamentoObservacoes" name="agendamentoObservacoes" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn-primary"><i class="fas fa-calendar-plus"></i> Salvar Agendamento</button>
-            </form>
-        </div>
-    </div>
-
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.14/index.global.min.js'></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.14/index.global.min.js"></script>
     <script src="../js/agendamentos.js"></script>
-    <script src="../js/authCheck.js"></script> </body>
+</body>
 </html>

@@ -185,3 +185,22 @@ body {
         font-size: 1em;
     }
 }
+
+#formAgendamento .input-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+#formAgendamento .input-group input,
+#formAgendamento .input-group select,
+#formAgendamento .input-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+}
