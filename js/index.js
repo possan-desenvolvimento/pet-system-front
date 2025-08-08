@@ -1,51 +1,41 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('loginForm');
-    const usernameInput = document.getElementById('username');
-    const passwordInput = document.getElementById('password');
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('.login-form');
     const messageDiv = document.getElementById('message');
 
-    if (loginForm) {
-        loginForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Impede o envio padrão do formulário
+    form.addEventListener('submit', async function (event) {
+        event.preventDefault();
 
-            const username = usernameInput.value;
-            const password = passwordInput.value;
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-            // Limpa mensagens anteriores
-            messageDiv.textContent = '';
+        try {
+            console.log("Entrou no método para fazer login.");
 
-            try {
-                // Endpoint do seu backend para login
-               //  const response = await fetch('http://localhost:8080/api/auth/login', {
-               const response = await fetch('http://127.0.0.1:8080/api/auth/login', {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ username, password }),
-                });
+            const response = await fetch('http://localhost:8080/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
 
-                if (response.ok) {
-                    const data = await response.text(); // Seu backend retorna texto para sucesso/falha
-                    messageDiv.style.color = 'green';
-                    messageDiv.textContent = data; // Ex: "Login successful! Welcome, ..."
+            const responseText = await response.text(); // <- mudou de .json() para .text()
 
-                    // Redireciona para o dashboard após um pequeno atraso
-                    setTimeout(() => {
-                        window.location.href = '../pages/dashboard.html'; // Ajuste o caminho conforme sua estrutura
-                    }, 1500); // Redireciona após 1.5 segundos
-                } else {
-                    const errorText = await response.text(); // Pega a mensagem de erro do backend
-                    messageDiv.style.color = 'red';
-                    messageDiv.textContent = errorText || 'Erro desconhecido ao fazer login.';
-                }
-            } catch (error) {
-                console.error('Erro na requisição de login:', error);
+            if (response.ok) {
+                messageDiv.style.color = 'green';
+                messageDiv.textContent = `Login bem-sucedido: ${responseText}`;
+
+                setTimeout(() => {
+                    window.location.href = '../pages/dashboard.html';
+                }, 1500);
+            } else {
                 messageDiv.style.color = 'red';
-                messageDiv.textContent = 'Não foi possível conectar ao servidor. Tente novamente mais tarde.';
+                messageDiv.textContent = responseText || 'Usuário ou senha inválidos.';
             }
-        });
-    }
-}); 
-
+        } catch (error) {
+            console.error('Erro na requisição de login:', error);
+            messageDiv.style.color = 'red';
+            messageDiv.textContent = 'Erro de conexão com o servidor.';
+        }
+    });
+});
