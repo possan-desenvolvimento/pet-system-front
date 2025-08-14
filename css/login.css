@@ -1,0 +1,108 @@
+/* Fundo com imagem e centralização */
+.login-background {
+    background: url('../assets/images/fundo-veterinario.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Caixa central */
+.login-box {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 30px;
+    width: 350px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+/* Logo e título */
+.login-logo img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+.login-logo h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+.login-logo p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Campos de entrada */
+.input-group {
+    position: relative;
+    margin: 15px 0;
+}
+.input-group i {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #999;
+}
+.input-group input {
+    width: 100%;
+    padding: 10px 10px 10px 38px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+.input-group input:focus {
+    border-color: #4CAF50;
+}
+
+/* Botões */
+.form-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.btn-login {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    flex: 1;
+    margin-right: 5px;
+}
+.btn-login:hover {
+    background-color: #45a049;
+}
+.btn-exit {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    flex: 1;
+    margin-left: 5px;
+}
+.btn-exit:hover {
+    background-color: #e53935;
+}
+
+/* Rodapé do formulário */
+.form-footer {
+    margin-top: 15px;
+    font-size: 13px;
+}
+.form-footer a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+.form-footer a:hover {
+    text-decoration: underline;
+}

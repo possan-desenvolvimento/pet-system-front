@@ -839,3 +839,45 @@
         border-bottom: 1px solid #007bff; /* Mantém a borda inferior para ativo */
     }
 }
+
+/* Estilos para ocultar/exibir elementos */
+.hidden {
+    display: none !important;
+}
+
+/* Estilos para a tabela */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.data-table th, .data-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.data-table th {
+    background-color: var(--secondary-bg);
+    color: var(--text-color-light);
+}
+
+.data-table tbody tr:hover {
+    background-color: var(--hover-color);
+}
+
+.data-table .btn-action {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin: 0 5px;
+    transition: color 0.3s ease;
+}
+
+.data-table .btn-action:hover {
+    color: var(--primary-color);
+}
+
