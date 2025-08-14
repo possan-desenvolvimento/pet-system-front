@@ -209,34 +209,41 @@
           </div>
         </div>
 
-        <div id="tab-notificacoes" class="tab-content" style="display:none;">
-          <div class="card">
-            <div class="card-header">
-              <h2>Preferências de Notificações</h2>
-            </div>
-            <div class="card-body">
-              <form>
-                <div class="input-group checkbox-group">
-                  <input type="checkbox" id="notifyNewAppointment" checked />
-                  <label for="notifyNewAppointment">Notificar sobre novos agendamentos</label>
-                </div>
-                <div class="input-group checkbox-group">
-                  <input type="checkbox" id="notifyLowStock" checked />
-                  <label for="notifyLowStock">Notificar sobre estoque baixo</label>
-                </div>
-                <div class="input-group checkbox-group">
-                  <input type="checkbox" id="notifyNewClient" />
-                  <label for="notifyNewClient">Notificar sobre novos clientes</label>
-                </div>
-                <div class="input-group">
-                  <label for="notificationEmail">Email para Notificações:</label>
-                  <input type="email" id="notificationEmail" value="alertas@dvjpet.com.br" />
-                </div>
-                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar Preferências</button>
-              </form>
-            </div>
-          </div>
+      <div id="tab-notificacoes" class="tab-content" style="display:none;">
+    <div class="card">
+        <div class="card-header">
+            <h2>Preferências de Notificações</h2>
         </div>
+        <div class="card-body">
+            <form>
+                <div class="input-group checkbox-group">
+                    <input type="checkbox" id="notifyNewAppointment" checked />
+                    <label for="notifyNewAppointment">Notificar sobre novos agendamentos</label>
+                </div>
+                <div class="input-group checkbox-group">
+                    <input type="checkbox" id="notifyLowStock" checked />
+                    <label for="notifyLowStock">Notificar sobre estoque baixo</label>
+                </div>
+                <div class="input-group checkbox-group">
+                    <input type="checkbox" id="notifyNewClient" />
+                    <label for="notifyNewClient">Notificar sobre novos clientes</label>
+                </div>
+                
+                <div class="input-group">
+                    <label for="whatsappPhoneNumber">Número do WhatsApp (com DDD):</label>
+                    <input type="tel" id="whatsappPhoneNumber" name="whatsappPhoneNumber" placeholder="(XX) 9XXXX-XXXX" />
+                </div>
+                
+                <div class="input-group">
+                    <label for="notificationEmail">Email para Notificações:</label>
+                    <input type="email" id="notificationEmail" value="alertas@dvjpet.com.br" />
+                </div>
+                
+                <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar Preferências</button>
+            </form>
+        </div>
+    </div>
+</div>
 
       </section>
     </main>

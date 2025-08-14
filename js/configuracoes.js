@@ -10,10 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const userTableBody = document.getElementById('userTableBody');
 
-  // URL principal para o CRUD de usuários
+  // URLs dos endpoints
   const API_URL = 'http://localhost:8080/api/user-config';
-  // NOVO: URL específica para a gestão de permissões
   const PERMISSIONS_API_URL = 'http://localhost:8080/api/permissions';
+  // NOVO: URL do endpoint de Notificações
+  const NOTIFICATIONS_API_URL = 'http://localhost:8080/api/notifications';
 
   let editingUserId = null; // Variável para armazenar o ID do usuário em edição
 
@@ -30,10 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (tabId === 'usuarios') {
         userTableCard.style.display = 'block';
         userFormCard.style.display = 'none';
-        loadUsersTable(); // carrega a lista
+        loadUsersTable();
       }
       if (tabId === 'seguranca') {
-        loadUsersForPermissions(); // popula o select
+        loadUsersForPermissions();
+      }
+      // NOVO: Chama a função para carregar as configurações de notificação
+      if (tabId === 'notificacoes') {
+        loadNotificationConfig();
       }
     });
   });
@@ -43,9 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
     btnNovoUsuario.addEventListener('click', () => {
       userTableCard.style.display = 'none';
       userFormCard.style.display = 'block';
-      // Limpa o formulário para um novo cadastro
       document.querySelector('.user-form').reset();
-      editingUserId = null; // Garante que não estamos em modo de edição
+      editingUserId = null;
       userFormCard.querySelector('h2').textContent = 'Cadastro de Usuário';
     });
   }
@@ -55,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnVoltarUsuarios.addEventListener('click', () => {
       userTableCard.style.display = 'block';
       userFormCard.style.display = 'none';
-      editingUserId = null; // Sai do modo de edição
+      editingUserId = null;
     });
   }
 
@@ -129,23 +133,17 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Carregar tabela de usuários ---
   async function loadUsersTable() {
     if (!userTableBody) return;
-
-    userTableBody.innerHTML = `
-      <tr><td colspan="6" style="text-align:center;">Carregando...</td></tr>
-    `;
+    userTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Carregando...</td></tr>`;
 
     try {
       const res = await fetch(API_URL, { cache: 'no-store' });
       if (!res.ok) throw new Error('Erro ao carregar usuários');
 
       const users = await res.json();
-
       const list = (users || []).filter(u => u && (u.name || u.email || u.role || u.id));
 
       if (!list.length) {
-        userTableBody.innerHTML = `
-          <tr><td colspan="6" style="text-align:center;">Nenhum usuário encontrado.</td></tr>
-        `;
+        userTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">Nenhum usuário encontrado.</td></tr>`;
         return;
       }
 
@@ -159,16 +157,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const safeRole = toTitle(user.role) || '—';
 
         tr.innerHTML = `
-          <td>${user.id ?? '—'}</td>
-          <td>${safeName}</td>
-          <td>${safeEmail}</td>
-          <td>${safeRole}</td>
-          <td>Ativo</td>
-          <td>
-            <button class="btn-action edit-btn" title="Editar Usuário" data-id="${user.id}"><i class="fas fa-edit"></i></button>
-            <button class="btn-action delete-btn" title="Remover Usuário" data-id="${user.id}"><i class="fas fa-trash-alt"></i></button>
-          </td>
-        `;
+          <td>${user.id ?? '—'}</td>
+          <td>${safeName}</td>
+          <td>${safeEmail}</td>
+          <td>${safeRole}</td>
+          <td>Ativo</td>
+          <td>
+            <button class="btn-action edit-btn" title="Editar Usuário" data-id="${user.id}"><i class="fas fa-edit"></i></button>
+            <button class="btn-action delete-btn" title="Remover Usuário" data-id="${user.id}"><i class="fas fa-trash-alt"></i></button>
+          </td>
+        `;
         userTableBody.appendChild(tr);
       });
 
@@ -176,9 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } catch (error) {
       console.error('Erro ao carregar usuários:', error);
-      userTableBody.innerHTML = `
-        <tr><td colspan="6" style="text-align:center;color:#c00;">Erro ao carregar usuários.</td></tr>
-      `;
+      userTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#c00;">Erro ao carregar usuários.</td></tr>`;
     }
   }
 
@@ -200,14 +196,12 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const res = await fetch(`${API_URL}/${id}`, { cache: 'no-store' });
       if (!res.ok) throw new Error('Erro ao buscar usuário para edição.');
-
       const user = await res.json();
 
       document.getElementById('userId').value = user.id;
       document.getElementById('userName').value = user.name;
       document.getElementById('userEmail').value = user.email;
       document.getElementById('userRole').value = user.role;
-
       document.getElementById('userPassword').value = '';
       document.getElementById('userConfirmPassword').value = '';
 
@@ -216,7 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       userTableCard.style.display = 'none';
       userFormCard.style.display = 'block';
-
     } catch (err) {
       console.error('Erro ao buscar usuário para edição:', err);
       alert('Erro ao carregar os dados do usuário para edição.');
@@ -237,7 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!res.ok) throw new Error('Erro ao deletar usuário.');
 
       alert('Usuário removido com sucesso!');
-      loadUsersTable(); // Recarrega a tabela para refletir a mudança
+      loadUsersTable();
       loadUsersForPermissions();
     } catch (err) {
       console.error('Erro ao deletar usuário:', err);
@@ -253,15 +246,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function loadUsersForPermissions() {
     if (!selectUser) return;
-
     selectUser.innerHTML = '<option value="">Selecione um usuário</option>';
 
     try {
       const res = await fetch(API_URL, { cache: 'no-store' });
       if (!res.ok) throw new Error('Erro ao carregar usuários');
-
       const users = await res.json();
-
       const valid = (users || [])
         .filter(u => u && (u.name || u.email || u.id))
         .sort((a, b) => {
@@ -284,7 +274,6 @@ document.addEventListener('DOMContentLoaded', () => {
         option.textContent = user.name || user.email || `Usuário #${user.id}`;
         selectUser.appendChild(option);
       });
-
     } catch (err) {
       console.error('Erro ao carregar usuários para permissões:', err);
       const opt = document.createElement('option');
@@ -307,9 +296,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (savePermissionsBtn) {
       savePermissionsBtn.disabled = false;
     }
-
+    
     try {
-      // NOVO ENDPOINT: /api/permissions/{userId}
       const res = await fetch(`${PERMISSIONS_API_URL}/${userId}`, { cache: 'no-store' });
       if (!res.ok) throw new Error('Erro ao buscar permissões do usuário.');
 
@@ -325,7 +313,6 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Erro ao carregar as permissões do usuário.');
     }
   }
-
 
   if (selectUser) {
     selectUser.addEventListener('change', (event) => {
@@ -352,7 +339,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       try {
-        // NOVO ENDPOINT: PUT para /api/permissions/{userId}
         const res = await fetch(`${PERMISSIONS_API_URL}/${userId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
@@ -369,6 +355,81 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+
+  // --- NOVO CÓDIGO para a tela de Notificações ---
+  const notificationForm = document.querySelector('#tab-notificacoes form');
+
+  // Adiciona os novos campos de WhatsApp
+  const notificationFormBody = notificationForm.querySelector('.card-body form');
+  if (notificationFormBody) {
+    const whatsappGroup = document.createElement('div');
+    whatsappGroup.className = 'input-group';
+    whatsappGroup.innerHTML = `
+      <label for="whatsappPhoneNumber">Número do WhatsApp (com DDD):</label>
+      <input type="tel" id="whatsappPhoneNumber" name="whatsappPhoneNumber" placeholder="(XX) 9XXXX-XXXX" />
+    `;
+    // Insere o novo campo antes do email
+    const emailGroup = document.getElementById('notificationEmail').closest('.input-group');
+    if (emailGroup) {
+      notificationForm.insertBefore(whatsappGroup, emailGroup);
+    }
+  }
+
+
+  // Função para buscar e carregar as configurações de notificação
+  async function loadNotificationConfig() {
+    if (!notificationForm) return;
+
+    try {
+      const res = await fetch(NOTIFICATIONS_API_URL, { cache: 'no-store' });
+      if (!res.ok) throw new Error('Erro ao carregar configurações de notificação.');
+
+      const config = await res.json();
+
+      // Preenche os campos do formulário com os dados do backend
+      document.getElementById('notificationEmail').value = config.notificationEmail || '';
+      document.getElementById('whatsappPhoneNumber').value = config.whatsappPhoneNumber || '';
+      document.getElementById('notifyNewAppointment').checked = config.notifyNewAppointment;
+      document.getElementById('notifyLowStock').checked = config.notifyLowStock;
+      document.getElementById('notifyNewClient').checked = config.notifyNewClient;
+
+    } catch (err) {
+      console.error('Erro ao carregar configurações de notificação:', err);
+      alert('Erro ao carregar as preferências de notificação.');
+    }
+  }
+
+  // Event Listener para salvar as configurações de notificação
+  if (notificationForm) {
+    notificationForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const payload = {
+        notificationEmail: document.getElementById('notificationEmail').value,
+        whatsappPhoneNumber: document.getElementById('whatsappPhoneNumber').value,
+        notifyNewAppointment: document.getElementById('notifyNewAppointment').checked,
+        notifyLowStock: document.getElementById('notifyLowStock').checked,
+        notifyNewClient: document.getElementById('notifyNewClient').checked,
+      };
+
+      try {
+        const res = await fetch(NOTIFICATIONS_API_URL, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error('Erro ao salvar as configurações.');
+
+        alert('Configurações de notificação salvas com sucesso!');
+
+      } catch (err) {
+        console.error('Erro ao salvar configurações de notificação:', err);
+        alert('Erro ao salvar as configurações.');
+      }
+    });
+  }
+
   // --- Inicialização ---
   const activeTab = document.querySelector('.tab-button.active');
   if (activeTab) {
@@ -376,6 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById(`tab-${activeTabId}`).style.display = 'block';
     if (activeTabId === 'usuarios') loadUsersTable();
     if (activeTabId === 'seguranca') loadUsersForPermissions();
+    if (activeTabId === 'notificacoes') loadNotificationConfig();
   } else {
     tabButtons[0]?.classList.add('active');
     const firstTabId = tabButtons[0]?.getAttribute('data-tab');
