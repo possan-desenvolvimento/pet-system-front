@@ -8,10 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnNovoUsuario = document.getElementById('btnNovoUsuario');
   const btnVoltarUsuarios = document.getElementById('btnVoltarUsuarios');
 
-  // ⚠️ tbody correto
   const userTableBody = document.getElementById('userTableBody');
 
+  // URL principal para o CRUD de usuários
   const API_URL = 'http://localhost:8080/api/user-config';
+  // NOVO: URL específica para a gestão de permissões
+  const PERMISSIONS_API_URL = 'http://localhost:8080/api/permissions';
+
   let editingUserId = null; // Variável para armazenar o ID do usuário em edição
 
   // Lógica de mudança de abas
@@ -27,10 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (tabId === 'usuarios') {
         userTableCard.style.display = 'block';
         userFormCard.style.display = 'none';
-        loadUsersTable();           // carrega a lista
+        loadUsersTable(); // carrega a lista
       }
       if (tabId === 'seguranca') {
-        loadUsersForPermissions();  // popula o select
+        loadUsersForPermissions(); // popula o select
       }
     });
   });
@@ -43,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
       // Limpa o formulário para um novo cadastro
       document.querySelector('.user-form').reset();
       editingUserId = null; // Garante que não estamos em modo de edição
-      // CORRIGIDO: Agora usa o seletor correto
       userFormCard.querySelector('h2').textContent = 'Cadastro de Usuário';
     });
   }
@@ -69,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const userPassword = document.getElementById('userPassword').value;
       const userConfirmPassword = document.getElementById('userConfirmPassword').value;
 
-      // Validação de senha apenas para criação ou quando a senha é alterada na edição
       if ((!editingUserId || userPassword) && userPassword !== userConfirmPassword) {
         alert('As senhas não coincidem!');
         return;
@@ -86,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
       let url = API_URL;
 
       if (editingUserId) {
-        // Modo de edição: Altera o método para PUT e a URL
         method = 'PUT';
         url = `${API_URL}/${editingUserId}`;
       }
@@ -109,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
         userFormCard.style.display = 'none';
         editingUserId = null;
 
-        // Recarrega tabela e select de permissões
         loadUsersTable();
         loadUsersForPermissions();
       } catch (err) {
@@ -141,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const users = await res.json();
 
-      // filtra registros totalmente vazios
       const list = (users || []).filter(u => u && (u.name || u.email || u.role || u.id));
 
       if (!list.length) {
@@ -151,10 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      userTableBody.innerHTML = ''; // limpa
+      userTableBody.innerHTML = '';
       list.forEach(user => {
         const tr = document.createElement('tr');
-        tr.dataset.userId = user.id; // Adiciona o ID do usuário na linha
+        tr.dataset.userId = user.id;
 
         const safeName = user.name || '(sem nome)';
         const safeEmail = user.email || '(sem email)';
@@ -174,7 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
         userTableBody.appendChild(tr);
       });
 
-      // Adiciona os event listeners após a tabela ser populada
       userTableBody.addEventListener('click', handleUserActions);
 
     } catch (error) {
@@ -206,21 +203,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const user = await res.json();
 
-      // Preenche o formulário com os dados do usuário
       document.getElementById('userId').value = user.id;
       document.getElementById('userName').value = user.name;
       document.getElementById('userEmail').value = user.email;
       document.getElementById('userRole').value = user.role;
 
-      // Limpa os campos de senha
       document.getElementById('userPassword').value = '';
       document.getElementById('userConfirmPassword').value = '';
 
-      // CORRIGIDO: Agora usa o seletor correto
       userFormCard.querySelector('h2').textContent = 'Editar Usuário';
       editingUserId = user.id;
 
-      // Mostra o formulário de edição e esconde a tabela
       userTableCard.style.display = 'none';
       userFormCard.style.display = 'block';
 
@@ -256,11 +249,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const selectUser = document.getElementById('selectUser');
   const permissionForm = document.getElementById('permissionForm');
   const savePermissionsBtn = permissionForm ? permissionForm.querySelector('button[type="submit"]') : null;
+  const permissionCheckboxes = document.querySelectorAll('.permission-list input[type="checkbox"]');
 
   async function loadUsersForPermissions() {
     if (!selectUser) return;
 
-    // placeholder
     selectUser.innerHTML = '<option value="">Selecione um usuário</option>';
 
     try {
@@ -269,7 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const users = await res.json();
 
-      // filtra vazios e ordena por nome (fallback email/id)
       const valid = (users || [])
         .filter(u => u && (u.name || u.email || u.id))
         .sort((a, b) => {
@@ -302,22 +294,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  async function fetchAndSetPermissions(userId) {
+    permissionCheckboxes.forEach(checkbox => checkbox.checked = false);
+
+    if (!userId) {
+      if (savePermissionsBtn) {
+        savePermissionsBtn.disabled = true;
+      }
+      return;
+    }
+
+    if (savePermissionsBtn) {
+      savePermissionsBtn.disabled = false;
+    }
+
+    try {
+      // NOVO ENDPOINT: /api/permissions/{userId}
+      const res = await fetch(`${PERMISSIONS_API_URL}/${userId}`, { cache: 'no-store' });
+      if (!res.ok) throw new Error('Erro ao buscar permissões do usuário.');
+
+      const permissions = await res.json();
+
+      permissionCheckboxes.forEach(checkbox => {
+        if (permissions.includes(checkbox.name)) {
+          checkbox.checked = true;
+        }
+      });
+    } catch (err) {
+      console.error('Erro ao buscar permissões:', err);
+      alert('Erro ao carregar as permissões do usuário.');
+    }
+  }
+
+
   if (selectUser) {
     selectUser.addEventListener('change', (event) => {
       const userId = event.target.value;
-
-      // limpa checkboxes
-      const permissionCheckboxes = document.querySelectorAll('.permission-list input[type="checkbox"]');
-      permissionCheckboxes.forEach(checkbox => checkbox.checked = false);
-
-      if (savePermissionsBtn) {
-        savePermissionsBtn.disabled = !userId;
-      }
+      fetchAndSetPermissions(userId);
     });
   }
 
   if (permissionForm) {
-    permissionForm.addEventListener('submit', (event) => {
+    permissionForm.addEventListener('submit', async (event) => {
       event.preventDefault();
 
       const userId = selectUser.value;
@@ -327,12 +345,27 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const selectedPermissions = [];
-      document
-        .querySelectorAll('.permission-list input[type="checkbox"]:checked')
-        .forEach(checkbox => selectedPermissions.push(checkbox.name));
+      permissionCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+          selectedPermissions.push(checkbox.name);
+        }
+      });
 
-      console.log(`Salvando permissões para o usuário ID ${userId}:`, selectedPermissions);
-      alert('Permissões salvas com sucesso! (Simulação)');
+      try {
+        // NOVO ENDPOINT: PUT para /api/permissions/{userId}
+        const res = await fetch(`${PERMISSIONS_API_URL}/${userId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(selectedPermissions)
+        });
+
+        if (!res.ok) throw new Error('Erro ao salvar permissões');
+
+        alert('Permissões salvas com sucesso!');
+      } catch (err) {
+        console.error('Erro ao salvar permissões:', err);
+        alert('Erro ao salvar as permissões.');
+      }
     });
   }
 
