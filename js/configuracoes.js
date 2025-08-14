@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabContents = document.querySelectorAll('.tab-content');
 
   const userTableCard = document.querySelector('#tab-usuarios .card:first-of-type');
-  const userFormCard  = document.getElementById('formUsuario');
+  const userFormCard = document.getElementById('formUsuario');
   const btnNovoUsuario = document.getElementById('btnNovoUsuario');
   const btnVoltarUsuarios = document.getElementById('btnVoltarUsuarios');
 
@@ -12,7 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const userTableBody = document.getElementById('userTableBody');
 
   const API_URL = 'http://localhost:8080/api/user-config';
+  let editingUserId = null; // Variável para armazenar o ID do usuário em edição
 
+  // Lógica de mudança de abas
   tabButtons.forEach(button => {
     button.addEventListener('click', () => {
       tabButtons.forEach(btn => btn.classList.remove('active'));
@@ -24,30 +26,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (tabId === 'usuarios') {
         userTableCard.style.display = 'block';
-        userFormCard.style.display  = 'none';
-        loadUsersTable();           // carrega a lista
+        userFormCard.style.display = 'none';
+        loadUsersTable();           // carrega a lista
       }
       if (tabId === 'seguranca') {
-        loadUsersForPermissions();  // popula o select
+        loadUsersForPermissions();  // popula o select
       }
     });
   });
 
+  // Botão Novo Usuário
   if (btnNovoUsuario) {
     btnNovoUsuario.addEventListener('click', () => {
       userTableCard.style.display = 'none';
-      userFormCard.style.display  = 'block';
+      userFormCard.style.display = 'block';
+      // Limpa o formulário para um novo cadastro
+      document.querySelector('.user-form').reset();
+      editingUserId = null; // Garante que não estamos em modo de edição
+      // CORRIGIDO: Agora usa o seletor correto
+      userFormCard.querySelector('h2').textContent = 'Cadastro de Usuário';
     });
   }
 
+  // Botão Voltar
   if (btnVoltarUsuarios) {
     btnVoltarUsuarios.addEventListener('click', () => {
       userTableCard.style.display = 'block';
-      userFormCard.style.display  = 'none';
+      userFormCard.style.display = 'none';
+      editingUserId = null; // Sai do modo de edição
     });
   }
 
-  // --- Cadastro de usuário no backend ---
+  // --- Cadastro/Edição de usuário no backend ---
   const userForm = document.querySelector('.user-form');
   if (userForm) {
     userForm.addEventListener('submit', async (event) => {
@@ -55,43 +65,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const userName = document.getElementById('userName').value.trim();
       const userEmail = document.getElementById('userEmail').value.trim();
-      const userRole  = document.getElementById('userRole').value;
+      const userRole = document.getElementById('userRole').value;
       const userPassword = document.getElementById('userPassword').value;
       const userConfirmPassword = document.getElementById('userConfirmPassword').value;
 
-      if (userPassword !== userConfirmPassword) {
+      // Validação de senha apenas para criação ou quando a senha é alterada na edição
+      if ((!editingUserId || userPassword) && userPassword !== userConfirmPassword) {
         alert('As senhas não coincidem!');
         return;
       }
 
+      const payload = {
+        name: userName,
+        email: userEmail,
+        role: userRole,
+        password: userPassword,
+      };
+
+      let method = 'POST';
+      let url = API_URL;
+
+      if (editingUserId) {
+        // Modo de edição: Altera o método para PUT e a URL
+        method = 'PUT';
+        url = `${API_URL}/${editingUserId}`;
+      }
+
       try {
-        const resp = await fetch(API_URL, {
-          method: 'POST',
+        const resp = await fetch(url, {
+          method: method,
           headers: { 'Content-Type': 'application/json' },
           cache: 'no-store',
-          body: JSON.stringify({
-            name: userName,
-            email: userEmail,
-            role: userRole,
-            password: userPassword
-          })
+          body: JSON.stringify(payload)
         });
 
-        if (!resp.ok) throw new Error('Erro ao cadastrar usuário');
+        if (!resp.ok) throw new Error(`Erro ao ${editingUserId ? 'editar' : 'cadastrar'} usuário`);
 
         const data = await resp.json();
-        alert(`Usuário "${data.name || data.email || data.id}" cadastrado com sucesso!`);
+        alert(`Usuário "${data.name}" ${editingUserId ? 'atualizado' : 'cadastrado'} com sucesso!`);
 
         userForm.reset();
         userTableCard.style.display = 'block';
-        userFormCard.style.display  = 'none';
+        userFormCard.style.display = 'none';
+        editingUserId = null;
 
         // Recarrega tabela e select de permissões
         loadUsersTable();
         loadUsersForPermissions();
       } catch (err) {
         console.error('Erro:', err);
-        alert('Erro ao cadastrar usuário!');
+        alert(`Erro ao ${editingUserId ? 'editar' : 'cadastrar'} usuário!`);
       }
     });
   }
@@ -109,8 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!userTableBody) return;
 
     userTableBody.innerHTML = `
-      <tr><td colspan="6" style="text-align:center;">Carregando...</td></tr>
-    `;
+      <tr><td colspan="6" style="text-align:center;">Carregando...</td></tr>
+    `;
 
     try {
       const res = await fetch(API_URL, { cache: 'no-store' });
@@ -123,37 +146,109 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!list.length) {
         userTableBody.innerHTML = `
-          <tr><td colspan="6" style="text-align:center;">Nenhum usuário encontrado.</td></tr>
-        `;
+          <tr><td colspan="6" style="text-align:center;">Nenhum usuário encontrado.</td></tr>
+        `;
         return;
       }
 
       userTableBody.innerHTML = ''; // limpa
       list.forEach(user => {
         const tr = document.createElement('tr');
+        tr.dataset.userId = user.id; // Adiciona o ID do usuário na linha
 
         const safeName = user.name || '(sem nome)';
         const safeEmail = user.email || '(sem email)';
-        const safeRole  = toTitle(user.role) || '—';
+        const safeRole = toTitle(user.role) || '—';
 
         tr.innerHTML = `
-          <td>${user.id ?? '—'}</td>
-          <td>${safeName}</td>
-          <td>${safeEmail}</td>
-          <td>${safeRole}</td>
-          <td>Ativo</td>
-          <td>
-            <button class="btn-action edit-btn" title="Editar Usuário"><i class="fas fa-edit"></i></button>
-            <button class="btn-action delete-btn" title="Remover Usuário"><i class="fas fa-trash-alt"></i></button>
-          </td>
-        `;
+          <td>${user.id ?? '—'}</td>
+          <td>${safeName}</td>
+          <td>${safeEmail}</td>
+          <td>${safeRole}</td>
+          <td>Ativo</td>
+          <td>
+            <button class="btn-action edit-btn" title="Editar Usuário" data-id="${user.id}"><i class="fas fa-edit"></i></button>
+            <button class="btn-action delete-btn" title="Remover Usuário" data-id="${user.id}"><i class="fas fa-trash-alt"></i></button>
+          </td>
+        `;
         userTableBody.appendChild(tr);
       });
+
+      // Adiciona os event listeners após a tabela ser populada
+      userTableBody.addEventListener('click', handleUserActions);
+
     } catch (error) {
       console.error('Erro ao carregar usuários:', error);
       userTableBody.innerHTML = `
-        <tr><td colspan="6" style="text-align:center;color:#c00;">Erro ao carregar usuários.</td></tr>
-      `;
+        <tr><td colspan="6" style="text-align:center;color:#c00;">Erro ao carregar usuários.</td></tr>
+      `;
+    }
+  }
+
+  // --- Funções de Ação (Editar e Deletar) ---
+  async function handleUserActions(event) {
+    const button = event.target.closest('button');
+    if (!button) return;
+
+    const userId = button.getAttribute('data-id');
+
+    if (button.classList.contains('edit-btn')) {
+      await fetchUserForEdit(userId);
+    } else if (button.classList.contains('delete-btn')) {
+      await deleteUser(userId);
+    }
+  }
+
+  async function fetchUserForEdit(id) {
+    try {
+      const res = await fetch(`${API_URL}/${id}`, { cache: 'no-store' });
+      if (!res.ok) throw new Error('Erro ao buscar usuário para edição.');
+
+      const user = await res.json();
+
+      // Preenche o formulário com os dados do usuário
+      document.getElementById('userId').value = user.id;
+      document.getElementById('userName').value = user.name;
+      document.getElementById('userEmail').value = user.email;
+      document.getElementById('userRole').value = user.role;
+
+      // Limpa os campos de senha
+      document.getElementById('userPassword').value = '';
+      document.getElementById('userConfirmPassword').value = '';
+
+      // CORRIGIDO: Agora usa o seletor correto
+      userFormCard.querySelector('h2').textContent = 'Editar Usuário';
+      editingUserId = user.id;
+
+      // Mostra o formulário de edição e esconde a tabela
+      userTableCard.style.display = 'none';
+      userFormCard.style.display = 'block';
+
+    } catch (err) {
+      console.error('Erro ao buscar usuário para edição:', err);
+      alert('Erro ao carregar os dados do usuário para edição.');
+    }
+  }
+
+  async function deleteUser(id) {
+    if (!confirm('Tem certeza que deseja remover este usuário?')) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_URL}/${id}`, {
+        method: 'DELETE',
+        cache: 'no-store'
+      });
+
+      if (!res.ok) throw new Error('Erro ao deletar usuário.');
+
+      alert('Usuário removido com sucesso!');
+      loadUsersTable(); // Recarrega a tabela para refletir a mudança
+      loadUsersForPermissions();
+    } catch (err) {
+      console.error('Erro ao deletar usuário:', err);
+      alert('Erro ao remover usuário.');
     }
   }
 
