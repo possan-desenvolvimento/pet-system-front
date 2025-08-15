@@ -22,7 +22,7 @@
                     <li class="nav-item"><a href="agendamentos.html"><i class="fas fa-calendar-alt"></i> Agendamentos</a></li>
                     <li class="nav-item"><a href="estoque.html"><i class="fas fa-boxes"></i> Estoque</a></li>
                     <li class="nav-item active"><a href="vendas.html"><i class="fas fa-cash-register"></i> Vendas</a></li>
-                    <li class="nav-item"><a href="financeiro.html"><i class="fas fa-dollar-sign"></i> Financeiro</a></li>                    
+                    <li class="nav-item"><a href="financeiro.html"><i class="fas fa-dollar-sign"></i> Financeiro</a></li> 
                     <li class="nav-item"><a href="configuracoes.html"><i class="fas fa-cog"></i> Configurações</a></li>
                     <li class="nav-item logout-item"><a href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                 </ul>
@@ -45,22 +45,26 @@
                         </div>
                         <div class="card-body">
                             <form class="sale-form">
-                                <div class="input-group">
-                                    <label for="searchProductService">Buscar Produto/Serviço:</label>
-                                    <input type="text" id="searchProductService" name="searchProductService" placeholder="Nome ou código do item...">
-                                    <ul id="searchResults" class="search-results-list">
-                                        <li data-id="1" data-price="189.90" data-name="Ração Premium Cães 15kg">Ração Premium Cães 15kg (R$ 189,90)</li>
-                                        <li data-id="2" data-price="35.00" data-name="Shampoo Neutro Filhotes">Shampoo Neutro Filhotes (R$ 35,00)</li>
-                                        <li data-id="3" data-price="80.00" data-name="Banho e Tosa Completa">Banho e Tosa Completa (R$ 80,00)</li>
-                                    </ul>
+                                <div class="add-item-manual">
+                                    <div class="input-group">
+                                        <label for="manualItemName">Nome do Item:</label>
+                                        <input type="text" id="manualItemName" name="manualItemName" placeholder="Ex: Ração especial" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="manualItemQty">Quantidade:</label>
+                                        <input type="number" id="manualItemQty" name="manualItemQty" min="1" value="1" required>
+                                    </div>
+                                    <div class="input-group">
+                                        <label for="manualItemPrice">Valor Unitário (R$):</label>
+                                        <input type="number" id="manualItemPrice" name="manualItemPrice" step="0.01" min="0" value="0.00" required>
+                                    </div>
+                                    <button type="button" class="btn-secondary" id="addItemButton"><i class="fas fa-plus-circle"></i> Adicionar Item</button>
                                 </div>
-
+                                
                                 <div class="input-group">
                                     <label for="selectedClient">Cliente (Opcional):</label>
                                     <select id="selectedClient" name="selectedClient">
                                         <option value="">Consumidor Final</option>
-                                        <option value="1">João Silva</option>
-                                        <option value="2">Maria Souza</option>
                                     </select>
                                 </div>
                                 <hr style="margin: 20px 0; border-color: #eee;">
@@ -76,38 +80,24 @@
                                         </tr>
                                     </thead>
                                     <tbody id="saleItemsBody">
-                                        <tr>
-                                            <td>Ração Premium Cães 15kg</td>
-                                            <td><input type="number" value="1" min="1" class="item-qty-input"></td>
-                                            <td>R$ 189,90</td>
-                                            <td>R$ 189,90</td>
-                                            <td><button class="btn-action delete-item-btn" title="Remover Item"><i class="fas fa-trash-alt"></i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Banho e Tosa Completa</td>
-                                            <td><input type="number" value="1" min="1" class="item-qty-input"></td>
-                                            <td>R$ 80,00</td>
-                                            <td>R$ 80,00</td>
-                                            <td><button class="btn-action delete-item-btn" title="Remover Item"><i class="fas fa-trash-alt"></i></button></td>
-                                        </tr>
                                     </tbody>
                                 </table>
                                 <div class="sale-summary">
-                                    <p>Subtotal: <span id="subtotal">R$ 269,90</span></p>
+                                    <p>Subtotal: <span id="subtotal">R$ 0,00</span></p>
                                     <div class="input-group">
                                         <label for="discount">Desconto (R$ ou %):</label>
                                         <input type="text" id="discount" name="discount" placeholder="Ex: 10,00 ou 5%">
                                     </div>
-                                    <h3>Total a Pagar: <span id="totalValue">R$ 259,90</span></h3>
+                                    <h3>Total a Pagar: <span id="totalValue">R$ 0,00</span></h3>
                                 </div>
                                 <div class="input-group">
                                     <label for="paymentMethod">Forma de Pagamento:</label>
                                     <select id="paymentMethod" name="paymentMethod" required>
                                         <option value="">Selecione a forma</option>
-                                        <option value="dinheiro">Dinheiro</option>
-                                        <option value="cartao-credito">Cartão de Crédito</option>
-                                        <option value="cartao-debito">Cartão de Débito</option>
-                                        <option value="pix">Pix</option>
+                                        <option value="DINHEIRO">Dinheiro</option>
+                                        <option value="CARTAO_CREDITO">Cartão de Crédito</option>
+                                        <option value="CARTAO_DEBITO">Cartão de Débito</option>
+                                        <option value="PIX">Pix</option>
                                     </select>
                                 </div>
                                 <div class="input-group">
@@ -144,28 +134,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>#001</td>
-                                        <td>10/07/2025</td>
-                                        <td>João Silva</td>
-                                        <td>R$ 259,90</td>
-                                        <td><span class="status-badge completed">Concluído</span></td>
-                                        <td>
-                                            <button class="btn-action view-btn" title="Ver Detalhes"><i class="fas fa-eye"></i></button>
-                                            <button class="btn-action print-btn" title="Imprimir Recibo"><i class="fas fa-print"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>#002</td>
-                                        <td>09/07/2025</td>
-                                        <td>Consumidor Final</td>
-                                        <td>R$ 50,00</td>
-                                        <td><span class="status-badge completed">Concluído</span></td>
-                                        <td>
-                                            <button class="btn-action view-btn"><i class="fas fa-eye"></i></button>
-                                            <button class="btn-action print-btn"><i class="fas fa-print"></i></button>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                             <div class="pagination">
@@ -180,6 +148,6 @@
         </main>
     </div>
 
-    <script src="src/js/vendas.js"></script>
+    <script src="../js/vendas.js"></script>
 </body>
 </html>
