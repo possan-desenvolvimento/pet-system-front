@@ -101,39 +101,6 @@
     </main>
 </div>
 
-<script>
-    // Gráfico de Pizza
-    const pieCtx = document.getElementById('pieChart').getContext('2d');
-    new Chart(pieCtx, {
-        type: 'pie',
-        data: {
-            labels: ['Rações', 'Serviços', 'Acessórios'],
-            datasets: [{
-                data: [45, 30, 25],
-                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
-            }]
-        }
-    });
-
-    // Gráfico de Barras
-    const barCtx = document.getElementById('barChart').getContext('2d');
-    new Chart(barCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-            datasets: [{
-                label: 'Agendamentos',
-                data: [5, 7, 4, 6, 8, 3, 2],
-                backgroundColor: '#36A2EB'
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: { beginAtZero: true }
-            }
-        }
-    });
-</script>
+<script src="../js/dashboard.js"></script>
 </body>
 </html>
