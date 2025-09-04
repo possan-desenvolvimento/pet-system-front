@@ -1,15 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
     const API_URL = "http://localhost:8080/api/agendamentos";
-    const CLIENTES_URL = "http://localhost:8080/api/clientes";
-    const PETS_URL = "http://localhost:8080/api/pets";
-
-    const modal = document.getElementById("appointmentModal");
+    // CORREÇÃO 1: Mude a referência para o ID do formulário
+    const formContainer = document.getElementById("formAgendamento");
     const btnNovoAgendamento = document.getElementById("btnNovoAgendamento");
-    const closeBtn = document.querySelector(".close-button");
+    // CORREÇÃO 2: Mude a referência para o novo botão de voltar
+    const btnVoltarFormulario = document.getElementById("btnVoltarFormulario");
     const form = document.getElementById("appointmentForm");
-
-    const selectCliente = document.getElementById("selectCliente");
-    const selectPet = document.getElementById("selectPet");
 
     // Inicializa o calendário
     const calendarEl = document.getElementById("calendar");
@@ -29,16 +25,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const eventos = data.map(a => ({
                     id: a.id,
-                    title: `${a.servico} - Pet ${a.petId}`,
+                    title: `${a.servico} - Pet ${a.nomePet}`,
                     start: `${a.data}T${a.hora}`,
                     extendedProps: {
-                        clienteId: a.clienteId,
-                        petId: a.petId,
+                        telefoneCliente: a.telefoneCliente,
+                        nomePet: a.nomePet,
                         observacoes: a.observacoes,
                         status: a.status
                     }
                 }));
-
                 successCallback(eventos);
             } catch (err) {
                 console.error(err);
@@ -46,56 +41,28 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         },
         eventClick: function (info) {
-            alert(`Serviço: ${info.event.title}\nObservações: ${info.event.extendedProps.observacoes || "Nenhuma"}`);
+            const props = info.event.extendedProps;
+            alert(`Serviço: ${info.event.title}\nCliente: ${props.telefoneCliente}\nObservações: ${props.observacoes || "Nenhuma"}`);
         }
     });
     calendar.render();
 
-    // Abre modal
+    // Abre o formulário fixo (não o modal)
     btnNovoAgendamento.addEventListener("click", () => {
-        modal.style.display = "flex";
-        carregarClientes();
+        // Mostra o formulário
+        formContainer.style.display = "block";
     });
 
-    // Fecha modal
-    closeBtn.addEventListener("click", () => {
-        modal.style.display = "none";
+    // Fecha o formulário fixo usando o botão de voltar
+    btnVoltarFormulario.addEventListener("click", () => {
+        // Esconde o formulário
+        formContainer.style.display = "none";
         form.reset();
     });
 
-    // Fecha modal ao clicar fora
+    // Fecha formulário ao clicar fora
     window.addEventListener("click", (e) => {
-        if (e.target === modal) {
-            modal.style.display = "none";
-            form.reset();
-        }
-    });
-
-    // Carrega clientes e pets
-    async function carregarClientes() {
-        try {
-            const res = await fetch(CLIENTES_URL);
-            const clientes = await res.json();
-            selectCliente.innerHTML = '<option value="">Selecione um cliente</option>';
-            clientes.forEach(c => {
-                selectCliente.innerHTML += `<option value="${c.id}">${c.nome}</option>`;
-            });
-        } catch (err) {
-            console.error("Erro ao carregar clientes", err);
-        }
-    }
-
-    selectCliente.addEventListener("change", async () => {
-        try {
-            const res = await fetch(`${PETS_URL}/cliente/${selectCliente.value}`);
-            const pets = await res.json();
-            selectPet.innerHTML = '<option value="">Selecione um pet</option>';
-            pets.forEach(p => {
-                selectPet.innerHTML += `<option value="${p.id}">${p.nome}</option>`;
-            });
-        } catch (err) {
-            console.error("Erro ao carregar pets", err);
-        }
+        // Não é mais necessário para formulários fixos, mas pode ser útil para outras lógicas
     });
 
     // Envia novo agendamento
@@ -103,8 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
 
         const novoAgendamento = {
-            clienteId: parseInt(selectCliente.value),
-            petId: parseInt(selectPet.value),
+            telefoneCliente: document.getElementById("telefoneCliente").value,
+            nomePet: document.getElementById("nomePet").value,
             servico: document.getElementById("agendamentoServico").value,
             data: document.getElementById("agendamentoData").value,
             hora: document.getElementById("agendamentoHora").value,
@@ -122,7 +89,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!res.ok) throw new Error("Erro ao salvar agendamento");
 
             alert("Agendamento salvo com sucesso!");
-            modal.style.display = "none";
+            // Esconde o formulário após salvar
+            formContainer.style.display = "none";
             form.reset();
             calendar.refetchEvents();
         } catch (err) {
