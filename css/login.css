@@ -38,27 +38,35 @@
 
 /* Campos de entrada */
 .input-group {
-    position: relative;
+    display: flex; /* ⬅️ Usa flexbox para alinhar os itens */
+    align-items: center; /* ⬅️ Centraliza verticalmente */
     margin: 15px 0;
-}
-.input-group i {
-    position: absolute;
-    top: 50%;
-    left: 12px;
-    transform: translateY(-50%);
-    color: #999;
-}
-.input-group input {
-    width: 100%;
-    padding: 10px 10px 10px 38px;
+    border: 1px solid #ccc; /* ⬅️ Borda no container */
     border-radius: 6px;
-    border: 1px solid #ccc;
-    outline: none;
-    font-size: 14px;
+    padding: 5px 10px; /* ⬅️ Padding no container */
     transition: 0.3s;
 }
-.input-group input:focus {
+
+.input-group label {
+    margin-right: 10px; /* ⬅️ Adiciona espaço à direita do ícone */
+}
+
+/* Ícones dentro da label */
+.input-group i {
+    color: #999;
+}
+
+/* Campo de input */
+.input-group input {
+    flex: 1; /* ⬅️ Faz o input ocupar o espaço restante */
+    padding: 5px 0; /* ⬅️ Padding apenas para cima e para baixo */
+    border: none; /* ⬅️ Remove a borda do input */
+    outline: none;
+    font-size: 14px;
+}
+.input-group:focus-within {
     border-color: #4CAF50;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
 }
 
 /* Botões */
