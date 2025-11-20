@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LP Creative Solutions System</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <title>LP Automações e Soluções</title>
+    <link rel="stylesheet" href="../css/financeiro.css">    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-
 <body>
     <div class="dashboard-wrapper">
+        <!-- Overlay para mobile -->
+        <div class="sidebar-overlay"></div>
+        
         <aside class="sidebar">
             <div class="sidebar-header">
-                <img src="../assets/images/logo-lp.jpg" alt="LP Creative Solutions Logo" class="sidebar-logo">
-                <h3>LP Creative Solutions System</h3>
+                <img src="../assets/images/logo-lp.jpg" alt="LP Automações e Soluções Logo" class="sidebar-logo">
+                <h3>LP Automações e Soluções</h3>
             </div>
             <nav class="sidebar-nav">
                 <ul>
-                    <li class="nav-item"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                    </li>
+                    <li class="nav-item"><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                     <li class="nav-item"><a href="clientes.html"><i class="fas fa-users"></i> Clientes e Pets</a></li>
-                    <li class="nav-item"><a href="agendamentos.html"><i class="fas fa-calendar-alt"></i>
-                            Agendamentos</a></li>
+                    <li class="nav-item"><a href="agendamentos.html"><i class="fas fa-calendar-alt"></i> Agendamentos</a></li>
                     <li class="nav-item"><a href="estoque.html"><i class="fas fa-boxes"></i> Estoque</a></li>
                     <li class="nav-item"><a href="vendas.html"><i class="fas fa-cash-register"></i> Vendas</a></li>
-                    <li class="nav-item active"><a href="financeiro.html"><i class="fas fa-dollar-sign"></i>Financeiro</a></li>                    
-                    <li class="nav-item"><a href="configuracoes.html"><i class="fas fa-cog"></i> Configurações</a></li>
-                    <li class="nav-item logout-item"><a href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a>
-                    </li>
+                    <li class="nav-item active"><a href="financeiro.html"><i class="fas fa-dollar-sign"></i> Financeiro</a></li>                                        
+                    <li class="nav-item logout-item"><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                 </ul>
             </nav>
         </aside>
 
         <main class="main-content">
             <header class="navbar">
+                <!-- Botão Hamburguer -->
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
                 <h1>Gestão Financeira</h1>
                 <div class="user-info">
-                    <span class="user-name">Olá, Nome do Usuário!</span>
+                    <span class="user-name">Olá, Leonardo Possan!</span>
                 </div>
             </header>
 
@@ -64,15 +64,13 @@
                 <div class="card">
                     <div class="card-header">
                         <h2>Contas a Pagar e Receber</h2>
-                        <div>
-                            <button class="btn-primary" id="btnNovaContaPagar"><i class="fas fa-plus"></i> Nova
-                                Despesa</button>
-                            <button class="btn-secondary" id="btnNovaContaReceber" style="margin-left: 10px;"><i
-                                    class="fas fa-plus"></i> Nova Receita</button>
+                        <div class="header-actions">
+                            <button class="btn-primary" id="btnNovaContaPagar"><i class="fas fa-plus"></i> Nova Despesa</button>
+                            <button class="btn-secondary" id="btnNovaContaReceber"><i class="fas fa-plus"></i> Nova Receita</button>
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="filter-bar" style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                        <div class="filter-bar">
                             <input type="date" id="filterFinanceDate" class="input-date">
                             <select id="filterFinanceType" class="input-select">
                                 <option value="">Tipo (Receita/Despesa)</option>
@@ -85,8 +83,7 @@
                                 <option value="pago">Pago</option>
                                 <option value="recebido">Recebido</option>
                             </select>
-                            <input type="text" id="filterFinanceDescription" placeholder="Descrição..."
-                                class="input-text-filter">
+                            <input type="text" id="filterFinanceDescription" placeholder="Descrição..." class="input-text-filter">
                             <button class="btn-secondary"><i class="fas fa-filter"></i> Filtrar</button>
                             <button class="btn-secondary"><i class="fas fa-sync-alt"></i> Limpar Filtros</button>
                         </div>
@@ -103,6 +100,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- Conteúdo dinâmico pelo JavaScript -->
                             </tbody>
                         </table>
                         <div class="pagination">
@@ -116,8 +114,7 @@
                 <div class="card" id="formFinanca" style="display: none;">
                     <div class="card-header">
                         <h2>Registrar Transação Financeira</h2>
-                        <button class="btn-secondary" id="btnVoltarFinancaLista"><i class="fas fa-arrow-left"></i>
-                            Voltar</button>
+                        <button class="btn-secondary" id="btnVoltarFinancaLista"><i class="fas fa-arrow-left"></i> Voltar</button>
                     </div>
                     <div class="card-body">
                         <form class="finance-form">
@@ -144,8 +141,7 @@
                             </div>
                             <div class="input-group">
                                 <label for="financaCategoria">Categoria:</label>
-                                <input type="text" id="financaCategoria" name="financaCategoria"
-                                    placeholder="Ex: Aluguel, Vendas, Salários">
+                                <input type="text" id="financaCategoria" name="financaCategoria" placeholder="Ex: Aluguel, Vendas, Salários">
                             </div>
                             <div class="input-group">
                                 <label for="financaStatus">Status:</label>
@@ -155,10 +151,6 @@
                                     <option value="recebido">Recebido</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar
-                                Transação</button>
-
-                            <!-- Adicione esta parte dentro do <form class="finance-form"> -->
                             <div class="input-group">
                                 <label for="financaFormaPagamento">Forma de Pagamento:</label>
                                 <select id="financaFormaPagamento" name="financaFormaPagamento" required>
@@ -172,8 +164,7 @@
                                     <option value="outro">Outro</option>
                                 </select>
                             </div>
-
-
+                            <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Salvar Transação</button>
                         </form>
                     </div>
                 </div>
@@ -183,5 +174,4 @@
 
     <script src="../js/financeiro.js"></script>
 </body>
-
 </html>

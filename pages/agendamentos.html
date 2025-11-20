@@ -3,84 +3,21 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>LP Creative Solutions System - Agendamentos</title>
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/dashboard.css" />
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
+    <title>LP Automações e Soluções - Agendamentos</title>
+    <link rel="stylesheet" href="../css/agendamentos.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/main.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.14/main.css" rel="stylesheet" />
-
-    <style>
-        /* Estilos adicionais para o calendário e formulário fixo */
-        #calendar {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: var(--shadow-light);
-        }
-
-        .fc .fc-button-primary {
-            background-color: var(--primary-color) !important;
-            border-color: var(--primary-color) !important;
-        }
-        .fc .fc-button-primary:hover {
-            background-color: var(--primary-dark-color) !important;
-            border-color: var(--primary-dark-color) !important;
-        }
-
-        /* Formulário fixo */
-        #formAgendamento {
-            max-width: 900px;
-            margin: 20px auto;
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: var(--shadow-dark);
-        }
-
-        #formAgendamento .input-group label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-        }
-
-        #formAgendamento .input-group input,
-        #formAgendamento .input-group select,
-        #formAgendamento .input-group textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid var(--border-color);
-            box-sizing: border-box;
-            margin-bottom: 15px;
-            background-color: var(--input-bg);
-            color: var(--text-color);
-        }
-
-        #formAgendamento .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        #formAgendamento .btn-secondary {
-            cursor: pointer;
-        }
-    </style>
 </head>
 
 <body>
     <div class="dashboard-wrapper">
+        <!-- Overlay para mobile -->
+        <div class="sidebar-overlay"></div>
+        
         <aside class="sidebar">
             <div class="sidebar-header">
-                <img src="../assets/images/logo-lp.jpg" alt="LP Creative Solutions Logo" class="sidebar-logo" />
-                <h3>LP Creative Solutions System</h3>
+                <img src="../assets/images/logo-lp.jpg" alt="LP Automações e Soluções Logo" class="sidebar-logo" />
+                <h3>LP Automações e Soluções</h3>
             </div>
             <nav class="sidebar-nav">
                 <ul>
@@ -89,18 +26,21 @@
                     <li class="nav-item active"><a href="agendamentos.html"><i class="fas fa-calendar-alt"></i> Agendamentos</a></li>
                     <li class="nav-item"><a href="estoque.html"><i class="fas fa-boxes"></i> Estoque</a></li>
                     <li class="nav-item"><a href="vendas.html"><i class="fas fa-cash-register"></i> Vendas</a></li>
-                    <li class="nav-item"><a href="financeiro.html"><i class="fas fa-dollar-sign"></i> Financeiro</a></li>                    
-                    <li class="nav-item"><a href="configuracoes.html"><i class="fas fa-cog"></i> Configurações</a></li>
-                    <li class="nav-item logout-item"><a href="index.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
+                    <li class="nav-item"><a href="financeiro.html"><i class="fas fa-dollar-sign"></i> Financeiro</a></li>                                        
+                    <li class="nav-item logout-item"><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Sair</a></li>
                 </ul>
             </nav>
         </aside>
 
         <main class="main-content">
             <header class="navbar">
+                <!-- Botão Hamburguer -->
+                <button class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
                 <h1>Agendamentos</h1>
                 <div class="user-info">
-                    <span class="user-name">Olá, Nome do Usuário!</span>
+                    <span class="user-name">Olá, Leonardo Possan!</span>
                 </div>
             </header>
 
@@ -196,7 +136,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.14/index.global.min.js"></script>
     <script src="../js/agendamentos.js"></script>
 </body>
 </html>

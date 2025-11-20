@@ -1,4 +1,4 @@
-/* dashboard.css - Versão com Menu Hamburguer Corrigido */
+/* clientes.css - Estilo Completo para Tela de Clientes */
 
 * {
     margin: 0;
@@ -18,7 +18,7 @@ body {
     min-height: 100vh;
 }
 
-/* Sidebar Moderna */
+/* Sidebar - Mantendo o mesmo estilo do dashboard */
 .sidebar {
     width: 280px;
     background: white;
@@ -31,7 +31,6 @@ body {
     z-index: 1000;
     transition: all 0.3s ease;
     border-right: 1px solid #e2e8f0;
-    transform: translateX(0);
 }
 
 .sidebar-header {
@@ -103,7 +102,7 @@ body {
 
 .nav-item a i {
     margin-right: 12px;
-    font-size: 18px;
+    font-size: 16px;
     width: 20px;
     text-align: center;
     color: #00FFFF;
@@ -221,162 +220,280 @@ body {
     opacity: 1;
 }
 
-/* Widgets do Dashboard */
-.dashboard-overview {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
+/* Conteúdo da Seção */
+.section-content {
     padding: 30px;
 }
 
-.widget {
+/* Cards */
+.card {
     background: white;
-    padding: 25px;
     border-radius: 16px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    transition: all 0.3s ease;
     border: 1px solid rgba(0, 255, 255, 0.1);
-    position: relative;
+    margin-bottom: 30px;
     overflow: hidden;
-}
-
-.widget::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(135deg, #00FFFF, #0099FF);
-}
-
-.widget:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(0, 255, 255, 0.15);
-}
-
-.widget h3 {
-    font-size: 16px;
-    color: #718096;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
-.widget-value {
-    font-size: 32px;
-    font-weight: 700;
-    color: #2d3748;
-    margin: 10px 0;
-    background: linear-gradient(135deg, #00FFFF, #0099FF);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.widget-link {
-    display: inline-block;
-    margin-top: 15px;
-    color: #00FFFF;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
     transition: all 0.3s ease;
 }
 
-.widget-link:hover {
-    color: #0099FF;
-    transform: translateX(5px);
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 255, 255, 0.1);
 }
 
-/* Gráficos */
-.charts-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    padding: 0 30px 30px;
-    margin-top: 20px;
+.card-header {
+    padding: 25px 30px;
+    background: linear-gradient(135deg, #f8fafc, #edf2f7);
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.chart-card {
-    background: white;
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 255, 255, 0.1);
-    transition: all 0.3s ease;
-}
-
-.chart-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 255, 255, 0.1);
-}
-
-.chart-card h3 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #2d3748;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-/* Atividades Recentes */
-.recent-activities {
-    background: white;
-    margin: 0 30px 30px;
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 255, 255, 0.1);
-}
-
-.recent-activities h2 {
+.card-header h2 {
     font-size: 22px;
     font-weight: 700;
     color: #2d3748;
-    margin-bottom: 20px;
+    margin: 0;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+/* Botões */
+.btn-primary {
     background: linear-gradient(135deg, #00FFFF, #0099FF);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.recent-activities ul {
-    list-style: none;
-}
-
-.recent-activities li {
-    padding: 15px 20px;
-    margin-bottom: 10px;
-    background: #f8fafc;
+    color: white;
+    border: none;
+    padding: 12px 20px;
     border-radius: 10px;
-    border-left: 4px solid #00FFFF;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.4);
+    background: linear-gradient(135deg, #00E6E6, #0088CC);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #edf2f7, #e2e8f0);
+    color: #4a5568;
+    border: 2px solid #e2e8f0;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.btn-secondary:hover {
+    background: linear-gradient(135deg, #e2e8f0, #cbd5e0);
+    border-color: #cbd5e0;
+    transform: translateY(-2px);
+}
+
+/* Barra de Pesquisa */
+.search-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+    align-items: center;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: #f8fafc;
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: #00FFFF;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Tabela de Dados */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.data-table thead {
+    background: linear-gradient(135deg, #00FFFF, #0099FF);
+}
+
+.data-table th {
+    padding: 16px 20px;
+    text-align: left;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.data-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 14px;
+    color: #4a5568;
+}
+
+.data-table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.data-table tbody tr:hover {
+    background: #f7fafc;
+    transform: translateX(5px);
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Botões de Ação na Tabela */
+.btn-action {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    color: #718096;
+    margin: 0 2px;
+}
+
+.btn-action:hover {
+    background: #edf2f7;
+    color: #00FFFF;
+}
+
+.btn-edit:hover {
+    color: #0099FF;
+}
+
+.btn-delete:hover {
+    color: #e53e3e;
+}
+
+/* Paginação */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-top: 1px solid #e2e8f0;
+}
+
+.pagination button {
+    background: #f7fafc;
+    border: 1px solid #e2e8f0;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
     transition: all 0.3s ease;
     font-size: 14px;
+}
+
+.pagination button:hover:not(:disabled) {
+    background: #00FFFF;
+    color: white;
+    border-color: #00FFFF;
+}
+
+.pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pagination span {
+    font-weight: 600;
+    color: #4a5568;
+}
+
+/* Formulário */
+.client-form {
+    max-width: 600px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
     color: #2d3748;
+    font-size: 14px;
 }
 
-.recent-activities li:hover {
-    background: #edf2f7;
-    transform: translateX(5px);
-    border-left-color: #0099FF;
+.input-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: #f8fafc;
 }
 
-.recent-activities li:last-child {
-    margin-bottom: 0;
+.input-group input:focus {
+    outline: none;
+    border-color: #00FFFF;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.1);
+    transform: translateY(-1px);
 }
 
-/* Ícones personalizados */
-.icon-dashboard::before { content: "📊"; }
-.icon-clients::before { content: "👥"; }
-.icon-calendar::before { content: "📅"; }
-.icon-stock::before { content: "📦"; }
-.icon-sales::before { content: "💰"; }
-.icon-finance::before { content: "💳"; }
-.icon-settings::before { content: "⚙️"; }
-.icon-logout::before { content: "🚪"; }
+/* Badge para Pets */
+.pet-badge {
+    display: inline-block;
+    background: rgba(0, 255, 255, 0.1);
+    color: #0099FF;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 2px;
+}
 
-/* RESPONSIVIDADE - Menu Hamburguer */
+/* RESPONSIVIDADE */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 250px;
+    }
+    
+    .main-content {
+        margin-left: 250px;
+    }
+}
+
 @media (max-width: 768px) {
     .sidebar {
         transform: translateX(-100%);
@@ -396,22 +513,35 @@ body {
         display: block;
     }
     
-    .dashboard-overview {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    .section-content {
         padding: 20px;
+    }
+    
+    .card-header {
+        padding: 20px;
+        flex-direction: column;
         gap: 15px;
+        align-items: flex-start;
     }
     
-    .charts-container {
-        padding: 0 20px 20px;
-        gap: 15px;
-        grid-template-columns: 1fr;
+    .search-bar {
+        flex-direction: column;
+        align-items: stretch;
     }
     
-    .recent-activities {
-        margin: 0 20px 20px;
+    .data-table {
+        display: block;
+        overflow-x: auto;
     }
     
+    .pagination {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
     .navbar {
         padding: 15px 20px;
     }
@@ -419,23 +549,15 @@ body {
     .navbar h1 {
         font-size: 24px;
     }
-}
-
-@media (max-width: 480px) {
-    .dashboard-overview {
-        grid-template-columns: 1fr;
-    }
     
-    .widget {
+    .card-body {
         padding: 20px;
     }
     
-    .widget-value {
-        font-size: 28px;
-    }
-    
-    .chart-card {
-        padding: 20px;
+    .data-table th,
+    .data-table td {
+        padding: 12px 15px;
+        font-size: 13px;
     }
 }
 

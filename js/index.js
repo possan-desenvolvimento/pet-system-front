@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
         try {
             console.log("Entrou no método para fazer login.");
 
-            const response = await fetch('http://localhost:8080/api/auth/login', {
+            const response = await fetch('http://localhost:8082/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (response.ok) {
                 messageDiv.style.color = 'green';
-                messageDiv.textContent = `Login bem-sucedido: ${responseText}`;
+                messageDiv.textContent = `Login bem-sucedido`;
 
                 setTimeout(() => {
                     window.location.href = '../pages/dashboard.html';

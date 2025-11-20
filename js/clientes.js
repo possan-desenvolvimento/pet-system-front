@@ -1,4 +1,53 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // =============================================
+    // CÓDIGO DO MENU HAMBURGUER
+    // =============================================
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+    
+    // Abrir/fechar menu
+    if (menuToggle) {
+        menuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+        });
+    }
+    
+    // Fechar menu ao clicar no overlay
+    if (overlay) {
+        overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+    
+    // Fechar menu ao clicar em um link (em telas pequenas)
+    const navLinks = document.querySelectorAll('.nav-item a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    });
+    
+    // Fechar menu ao redimensionar a janela para tamanho maior
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // =============================================
+    // CÓDIGO DOS CLIENTES
+    // =============================================
     const formCliente = document.getElementById('formCliente');
     const btnNovoCliente = document.getElementById('btnNovoCliente');
     const btnVoltarLista = document.getElementById('btnVoltarLista');
@@ -30,8 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const clienteId = clienteIdInput.value;
         const method = editando ? 'PUT' : 'POST';
         const url = editando
-            ? `http://localhost:8080/api/clientes/${clienteId}`
-            : `http://localhost:8080/api/clientes`;
+            ? `http://localhost:8082/api/clientes/${clienteId}`
+            : `http://localhost:8082/api/clientes`;
 
         const clientData = {
             nome: document.getElementById('clientNome').value,
@@ -70,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function carregarClientes() {
         try {
-            const response = await fetch('http://localhost:8080/api/clientes');
+            const response = await fetch('http://localhost:8082/api/clientes');
             if (response.ok) {
                 const clientes = await response.json();
                 tabelaBody.innerHTML = '';
@@ -120,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function buscarCliente(id) {
         try {
-            const response = await fetch(`http://localhost:8080/api/clientes/${id}`);
+            const response = await fetch(`http://localhost:8082/api/clientes/${id}`);
             if (response.ok) {
                 return await response.json();
             } else {
@@ -128,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error('Erro ao buscar cliente:', error);
+            throw error;
         }
     }
 
@@ -145,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function excluirCliente(id) {
         try {
-            const response = await fetch(`http://localhost:8080/api/clientes/${id}`, {
+            const response = await fetch(`http://localhost:8082/api/clientes/${id}`, {
                 method: 'DELETE'
             });
             if (response.ok) {
@@ -155,7 +205,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error) {
             console.error('Erro ao excluir cliente:', error);
+            throw error;
         }
+    }
+
+    // =============================================
+    // BOTÃO DE LOGOUT NO MENU - SIMPLES
+    // =============================================
+    const logoutBtn = document.querySelector('.logout-item a');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('Deseja realmente sair do sistema?')) {
+                window.location.href = '../index.html';
+            }
+        });
     }
 
     // Inicializa carregamento
